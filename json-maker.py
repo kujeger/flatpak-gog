@@ -25,13 +25,14 @@ def main():
         default="com.gog.Template.json")
     args = parser.parse_args()
 
-    jsondata = json.load(args.template, object_pairs_hook=collections.OrderedDict)
+    jsondata = json.load(
+        args.template, object_pairs_hook=collections.OrderedDict)
 
     jsondata['app-id'] = "com.gog.{}".format(args.name)
     archivedata = jsondata['modules'][0]['sources'][0]
     archivedata['path'] = args.tarball
     archivedata['sha256'] = args.sha
-    
+
     print(json.dumps(jsondata, indent=4))
 
 
