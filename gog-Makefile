@@ -1,0 +1,8 @@
+all:
+	true
+
+install:
+	mkdir /app/game /app/bin /app/lib
+	install gog-starter /app/bin/
+	cp -r game-extract/data/noarch/* /app/game/
+	ln -s /usr/lib/libjson-c.so.2 /app/lib/libjson.so.0

@@ -1,0 +1,76 @@
+{
+    "app-id": "com.gog.GAMENAME",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "1.6",
+    "sdk": "org.freedesktop.Sdk",
+    "sdk-version": "1.6",
+    "command": "gog-starter",
+    "finish-args": [
+        "--socket=x11",
+        "--share=network",
+        "--share=ipc",
+        "--device=dri",
+        "--socket=pulseaudio",
+        "--persist=.local",
+        "--persist=.config",
+        "--persist=.cache"
+    ],
+    "cleanup": [
+        "/include"
+    ],
+    "modules": [
+        {
+            "name": "game",
+            "no-autogen": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "path": "GAMEARCHIVE",
+                    "dest": "game-extract"
+                },
+                {
+                    "type": "file",
+                    "path": "gog-Makefile",
+                    "dest-filename": "Makefile"
+                },
+                {
+                    "type": "file",
+                    "path": "gog-starter"
+                }
+            ]
+        },
+        {
+            "name": "openal-soft",
+            "cmake": true,
+            "cleanup": [
+                "/bin",
+                "/share"
+            ],
+            "config-opts": [],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://kcat.strangesoft.net/openal-releases/openal-soft-1.17.2.tar.bz2",
+                    "sha256": "a341f8542f1f0b8c65241a17da13d073f18ec06658e1a1606a8ecc8bbc2b3314"
+                }
+            ]
+        },
+        {
+            "name": "openssl",
+            "no-autogen": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.openssl.org/source/old/1.0.0/openssl-1.0.0k.tar.gz",
+                    "sha256": "2982b2e9697a857b336c5c1b1b7b463747e5c1d560f25f6ace95365791b1efd1"
+                },
+                {
+                    "type": "file",
+                    "path": "openssl-configure",
+                    "dest-filename": "configure",
+                    "sha256": "f2dc21cb3749c3e751a0989490287cce151071220fe4a0d2817d9ad360f394f1"
+                }
+            ]
+        }
+    ]
+}
