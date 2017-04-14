@@ -1,10 +1,10 @@
-#Flatpak generator for GOG installers
+# Flatpak generator for GOG installers
 
 The hope is to have this eventually work with almost any GOG game, but that is probably a ways off.
 
 Presently there are hacks, like decompressing and then re-compressing the installer provided by GOG as it is not "really" a zip, which throws flatpak-builder for a loop.
 
-##Usage
+## Usage
 To prepare a game, you can use the provided "maker.sh" script, e.g.
 `./maker.sh ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
 which will create a new json in the current dir based on the com.gog.Template.json file, with a name like com.gog.BaldursGate2EnhancedEdition.json .
@@ -20,7 +20,7 @@ Unless you have already done this, add the local repo to your flatpak setup:
 ..and finally start it up like this:
 `flatpak run com.gog.BaldursGate2EnhancedEdition`
 
-##Compatibility
+## Compatibility
 This has not been tested with many GOG games yet, and it is extremely likely that a lot of further work will be needed to cover more games.
 Currently the following have been tested OK:
 
@@ -29,7 +29,7 @@ Currently the following have been tested OK:
 * [Icewind Dale: Enhanced Edition](https://www.gog.com/game/icewind_dale_enhanced_edition)
 * [Planescape: Torment: Enhanced Edition](https://www.gog.com/game/planescape_torment_enhanced_edition)
 
-##Further work
+## Further work
 Things that would be nice to implement:
 
 * .desktop files for starting the games. Converting the existing files GOG provides should be a good starting point.
