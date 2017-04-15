@@ -1,3 +1,4 @@
 #!/bin/bash
 
-/app/game/game/LastFederationLinux.x86
+cd /app/game/game/
+./LastFederationLinux.x86
