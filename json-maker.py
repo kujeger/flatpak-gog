@@ -25,7 +25,10 @@ def main():
         default="com.gog.Template.json")
     parser.add_argument(
         '--startoverride',
-        help="Start script to override default")
+        help="Start script to override default.")
+    parser.add_argument(
+        '--configureoverride',
+        help="Additional configure script to add.")
     args = parser.parse_args()
 
     jsondata = json.load(
@@ -41,6 +44,15 @@ def main():
             collections.OrderedDict([
                 ("type", "file"),
                 ("path", args.startoverride)
+            ])
+        )
+
+    if args.configureoverride:
+        jsondata['modules'][0]['sources'].append(
+            collections.OrderedDict([
+                ("type", "file"),
+                ("path", args.configureoverride),
+                ("dest-filename", "configure")
             ])
         )
 

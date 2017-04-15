@@ -51,4 +51,10 @@ then
     MAKEROPTS="${MAKEROPTS} --startoverride overrides/starter-${GAMENAME}"
 fi
 
+if [ -s overrides/configure-${GAMENAME} ]
+then
+    echo "Configure override found."
+    MAKEROPTS="${MAKEROPTS} --configureoverride overrides/configure-${GAMENAME}"
+fi
+
 ./json-maker.py ${MAKEROPTS} > gen_com.gog.${GAMENAME}.json
