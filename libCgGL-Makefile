@@ -1,0 +1,6 @@
+all:
+	true
+
+install:
+	install usr/lib/libCgGL.so /app/lib/
+	install usr/lib/libCg.so /app/lib/
