@@ -18,9 +18,13 @@ then
     echo "Extracting installer."
     unzip -q ${SRCPATH} -d ${TMPDIR}/${NAME} || true
     head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g' > ${TARBALL}.name
+    head -n 2 ${TMPDIR}/${NAME}/data/noarch/gameinfo | tail -n 1 > ${TARBALL}.gogversion
+    tail -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo > ${TARBALL}.gameversion
 fi
 
 GAMENAME=$(cat ${TARBALL}.name)
+GOGVERSION=$(cat ${TARBALL}.gogversion)
+GAMEVERSION=$(cat ${TARBALL}.gameversion)
 
 if [ ! -f ${TARBALL} ]
 then
@@ -43,7 +47,7 @@ then
 fi
 
 SHASUM=$(cat ${TARBALL}.sha)
-MAKEROPTS="${TARBALL} --name ${GAMENAME} --sha ${SHASUM}"
+MAKEROPTS="${TARBALL} --name ${GAMENAME} --sha ${SHASUM} --branch ${GOGVERSION}-${GAMEVERSION}"
 
 if [ -e overrides/starter-${GAMENAME} ]
 then

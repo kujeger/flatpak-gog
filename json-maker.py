@@ -29,12 +29,17 @@ def main():
     parser.add_argument(
         '--configureoverride',
         help="Additional configure script to add.")
+    parser.add_argument(
+        '--branch',
+        help="Branch version.",
+        default="master")
     args = parser.parse_args()
 
     jsondata = json.load(
         args.template, object_pairs_hook=collections.OrderedDict)
 
     jsondata['app-id'] = "com.gog.{}".format(args.name)
+    jsondata['branch'] = args.branch
     archivedata = jsondata['modules'][0]['sources'][0]
     archivedata['path'] = args.tarball
     archivedata['sha256'] = args.sha
