@@ -8,6 +8,7 @@ NAME=${FILENAME%.*}
 TMPDIR="${HOME}/tmp/gogextract"
 TARDIR="${TMPDIR}/tarballs"
 TARBALL="${TARDIR}/${NAME}.tar"
+ARCH=$(flatpak --default-arch)
 MAKEROPTS=""
 
 mkdir -p ${TMPDIR}
@@ -65,4 +66,16 @@ then
     MAKEROPTS="${MAKEROPTS} --configureoverride overrides/configure-${GAMENAME}"
 fi
 
+if jq .${GAMENAME} archlist.json >> /dev/null
+then
+    GAMEARCH=$(jq .${GAMENAME} archlist.json | sed 's/"//g')
+    if [ ${GAMEARCH} != "i386+x86_64" ]
+    then
+        ARCH=${GAMEARCH}
+    fi
+fi
+
 ./json-maker.py ${MAKEROPTS} > gen_com.gog.${GAMENAME}.json
+echo "Generation complete. You can build with something like
+
+flatpak-builder build/${GAMENAME} gen_com.gog.${GAMENAME}.json --force-clean --arch ${ARCH} --repo ~/FlatPak/gog-repo"
