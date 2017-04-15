@@ -49,6 +49,7 @@ Currently the following have been tested OK:
 * [Icewind Dale: Enhanced Edition](https://www.gog.com/game/icewind_dale_enhanced_edition)
 * [Planescape: Torment: Enhanced Edition](https://www.gog.com/game/planescape_torment_enhanced_edition)
 * [The Last Federation](https://www.gog.com/game/last_federation_the)
+* [Hotline Miami](https://www.gog.com/game/hotline_miami)
 
 ## Further work
 Things that would be nice to implement:
