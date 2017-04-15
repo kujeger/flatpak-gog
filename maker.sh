@@ -73,6 +73,8 @@ then
     then
         ARCH=${GAMEARCH}
     fi
+else
+    echo "WARNING! Could not find arch of game, please add to archlist.json!"
 fi
 
 ./json-maker.py ${MAKEROPTS} > gen_com.gog.${GAMENAME}.json

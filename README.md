@@ -11,9 +11,9 @@ Currently all the scripts create i386 builds, as only some GOG games have x86_64
 Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
 The following will build the Base image, put it into the repo dir "~/FlatPak/gog-repo", add that repo with the name "gog-repo", and finally install Base:
 
-`flatpak-builder Base com.gog.Base.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build/Base32 com.gog.Base.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
-`flatpak-builder Base com.gog.Base.json --force-clean --arch=x86_64 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build/Base64 com.gog.Base.json --force-clean --arch=x86_64 --repo ~/FlatPak/gog-repo`
 
 `flatpak --user remote-add --no-gpg-verify --if-not-exists gog-repo ~/FlatPak/gog-repo`
 
@@ -30,7 +30,7 @@ which will extract the complete installer and tar it up in ~/tmp/gogextract and 
 
 You can then build it and export it into a flatpak repo thus:
 
-`flatpak-builder BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build/BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
 (see also the suggested command in the output of maker.sh)
 
@@ -50,6 +50,8 @@ maker.sh leaves a tarball of parts of the extracted installer. This tarball is n
 flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can also be safely removed once you have the game running.
 
 the flatpak repo contains the games you have packaged. Don't delete this.
+
+If you are planning to build a lot of flatpaks, disk use will quickly balloon.
 
 ## Troubleshooting
 Sometimes the start.sh script provided from GOG does not work right in our flatpak.
