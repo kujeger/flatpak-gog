@@ -1,11 +1,25 @@
 # Flatpak generator for GOG installers
 The hope is to have this eventually work with almost any GOG game, but that is probably a ways off.
 
-These recipes require flatpak 0.9.1 or later.
-
 Presently there are hacks, like decompressing and then re-compressing the installer provided by GOG as it is not "really" a zip, which throws flatpak-builder for a loop.
 
-Currently all the scripts create i386 builds, as only some GOG games have x86_64 builds.
+## Prerequisites
+You will need flatpak 0.9.1 or later, and `jq`. Both should be available in your repository.
+
+This all uses the [freedesktop.org flatpak runtime](http://flatpak.org/runtimes.html).
+If you haven't already got it, add the repo like this:
+
+`flatpak --user remote-add --from gnome https://sdk.gnome.org/gnome.flatpakrepo`
+
+then install the runtime plus SDK:
+
+`flatpak --user install gnome org.freedesktop.Platform/i386/1.6`
+
+`flatpak --user install gnome org.freedesktop.Sdk/i386/1.6`
+
+`flatpak --user install gnome org.freedesktop.Platform/x86_64/1.6`
+
+`flatpak --user install gnome org.freedesktop.Sdk/x86_64/1.6`
 
 ## Usage
 Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
