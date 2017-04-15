@@ -13,5 +13,5 @@ then
         /var/data/ArcenDebugLog.txt
 fi
 
-cd /app/game/game/
-./LastFederationLinux.x86
+cd /app/game/
+./start.sh
