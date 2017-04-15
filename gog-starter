@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/lib"
-
 if [ -e /app/bin/starter-* ]
 then
     /app/bin/starter-*
