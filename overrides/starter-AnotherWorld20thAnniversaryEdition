@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /app/game/game/
+./AnotherWorld-x86
