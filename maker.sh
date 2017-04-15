@@ -18,8 +18,8 @@ then
     echo "Extracting installer."
     unzip -q ${SRCPATH} -d ${TMPDIR}/${NAME} || true
     head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g' > ${TARBALL}.name
-    head -n 2 ${TMPDIR}/${NAME}/data/noarch/gameinfo | tail -n 1 > ${TARBALL}.gogversion
-    tail -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo > ${TARBALL}.gameversion
+    head -n 2 ${TMPDIR}/${NAME}/data/noarch/gameinfo | tail -n 1 | sed 's/[^[:alpha:][:digit:]\.]//g' > ${TARBALL}.gogversion
+    tail -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]\.]//g' > ${TARBALL}.gameversion
 fi
 
 GAMENAME=$(cat ${TARBALL}.name)
