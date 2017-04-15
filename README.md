@@ -54,3 +54,4 @@ Things that would be nice to implement:
   * Additional libraries to install, possibly conflicting with other games.
 * 32/64bit needs to be handled somehow. It is possible this might need to be a manual list the build scripts consult.
 * DLC installation
+* Use installers as extra-data instead of the current archive hack?
