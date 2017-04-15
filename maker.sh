@@ -10,14 +10,17 @@ TARDIR="${TMPDIR}/tarballs"
 TARBALL="${TARDIR}/${NAME}.tar"
 MAKEROPTS=""
 
-if [ ! -d ${TMPDIR}/${NAME} ]
+mkdir -p ${TMPDIR}
+mkdir -p ${TARDIR}
+
+if [ ! -d ${TMPDIR}/${NAME} ] && [ ! -f ${TARBALL} ]
 then
     echo "Extracting installer."
-    mkdir -p ${TMPDIR}
     unzip -q ${SRCPATH} -d ${TMPDIR}/${NAME} || true
+    head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g' > ${TARBALL}.name
 fi
 
-GAMENAME=$(head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g')
+GAMENAME=$(cat ${TARBALL}.name)
 
 if [ ! -f ${TARBALL} ]
 then
@@ -31,6 +34,12 @@ fi
 if [ ! -f ${TARBALL}.sha ]
 then
     sha256sum ${TARBALL} | awk '{print $1}' > ${TARBALL}.sha
+fi
+
+if [ -d ${TMPDIR}/${NAME} ]
+then
+    echo "Cleaning up extracted files."
+    rm -r ${TMPDIR}/${NAME}
 fi
 
 SHASUM=$(cat ${TARBALL}.sha)
