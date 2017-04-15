@@ -35,4 +35,4 @@ fi
 
 SHASUM=$(cat ${TARBALL}.sha)
 
-./json-maker.py ${TARBALL} --name ${GAMENAME} --sha ${SHASUM} > com.gog.${GAMENAME}.json
+./json-maker.py ${TARBALL} --name ${GAMENAME} --sha ${SHASUM} > generated/com.gog.${GAMENAME}.json
