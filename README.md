@@ -32,7 +32,7 @@ You can then build it and export it into a flatpak repo thus:
 
 `flatpak-builder BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo repo`
 
-MAKE SURE TO USE THE CORRECT ARCH HERE (i386 or x86_64).
+MAKE SURE TO USE ARCH i386 HERE IF THE GAME ONLY SUPPORTS 32BIT.
 
 which will build the game flatpak, and put it into the repository "repo" in the current directory.
 
@@ -60,6 +60,6 @@ Things that would be nice to implement:
 * It might make sense to create a sort of GOG runtime instead of using the current Base-image approach.
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
-* 32/64bit needs to be handled somehow. It is possible this might need to be a manual list the build scripts consult.
+* It would be nice to pick 32/64bit automatically. This might need to be a manual list the build scripts consult.
 * DLC installation
-* Use installers as extra-data instead of the current archive hack?
+* Use installers as extra-data instead of the current archive hack? extra-data currently only supprots http(s), not local files.
