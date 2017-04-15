@@ -8,21 +8,32 @@ Currently all the scripts create i386 builds, as only some GOG games have x86_64
 ## Usage
 Before you build your first game, you will need to build and install the Base image.
 The following will build the Base image, put it into the repo dir "repo", add that repo, and finally install Base:
+
 `flatpak-builder Base com.gog.Base.json --force-clean --arch=i386 --repo repo`
+
 `flatpak --user remote-add --no-gpg-verify --if-not-exists gog-repo repo`
+
 `flatpak --user install gog-repo com.gog.Base`
 
+
 To prepare a game, you can use the provided "maker.sh" script, e.g.
+
 `./maker.sh ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
+
 which will create a new json in the current dir based on the com.gog.Template.json file, with a name like com.gog.BaldursGate2EnhancedEdition.json .
 
 You can then build it and export it into a flatpak repo thus:
+
 `flatpak-builder BaldursGate2EnhancedEdition com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo repo`
+
 which will build the game flatpak, and put it into the repository "repo" in the current directory.
 
 Install it like this:
+
 `flatpak --user install gog-repo com.gog.BaldursGate2EnhancedEdition`
+
 ..and finally start it up like this:
+
 `flatpak run com.gog.BaldursGate2EnhancedEdition`
 
 ## Compatibility
