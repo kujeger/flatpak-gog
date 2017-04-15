@@ -48,6 +48,7 @@ Currently the following have been tested OK:
 * [Baldur's Gate 2: Enhanced Edition](https://www.gog.com/game/baldurs_gate_2_enhanced_edition)
 * [Icewind Dale: Enhanced Edition](https://www.gog.com/game/icewind_dale_enhanced_edition)
 * [Planescape: Torment: Enhanced Edition](https://www.gog.com/game/planescape_torment_enhanced_edition)
+* [The Last Federation](https://www.gog.com/game/last_federation_the)
 
 ## Further work
 Things that would be nice to implement:
