@@ -18,7 +18,6 @@ then
 fi
 
 GAMENAME=$(head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g')
-mkdir -p tarballs
 
 if [ ! -f ${TARBALL} ]
 then
