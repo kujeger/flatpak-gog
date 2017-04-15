@@ -53,3 +53,4 @@ Things that would be nice to implement:
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
 * 32/64bit needs to be handled somehow. It is possible this might need to be a manual list the build scripts consult.
+* DLC installation
