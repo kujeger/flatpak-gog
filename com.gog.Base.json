@@ -54,17 +54,16 @@
         },
         {
             "name": "libCgGL",
-            "no-autogen": true,
+            "buildsystem": "simple",
+            "build-commands": [
+                "install usr/lib/libCgGL.so /app/lib/",
+                "install usr/lib/libCg.so /app/lib/"
+            ],
             "sources": [
                 {
                     "type": "archive",
                     "url": "http://developer.download.nvidia.com/cg/Cg_3.1/Cg-3.1_April2012_x86.tgz",
                     "sha256": "cef3591e436f528852db0e8c145d3842f920e0c89bcfb219c466797cb7b18879"
-                },
-                {
-                    "type": "file",
-                    "path": "patches/libCgGL-Makefile",
-                    "dest-filename": "Makefile"
                 }
             ]
         }
