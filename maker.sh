@@ -25,6 +25,10 @@ fi
 GAMENAME=$(cat ${TARBALL}.name)
 GOGVERSION=$(cat ${TARBALL}.gogversion)
 GAMEVERSION=$(cat ${TARBALL}.gameversion)
+if [ ${GAMEVERSION} == "n/a" ]
+then
+    GAMEVERSION=0
+fi
 
 if [ ! -f ${TARBALL} ]
 then
