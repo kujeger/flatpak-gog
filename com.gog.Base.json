@@ -36,7 +36,7 @@
                 },
                 {
                     "type": "file",
-                    "path": "openssl-configure",
+                    "path": "patches/openssl-configure",
                     "dest-filename": "configure",
                     "sha256": "f2dc21cb3749c3e751a0989490287cce151071220fe4a0d2817d9ad360f394f1"
                 }
@@ -63,7 +63,7 @@
                 },
                 {
                     "type": "file",
-                    "path": "libCgGL-Makefile",
+                    "path": "patches/libCgGL-Makefile",
                     "dest-filename": "Makefile"
                 }
             ]
