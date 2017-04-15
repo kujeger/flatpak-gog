@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ ! -d /var/data/Save ]
+then
+    mkdir /var/data/Save
+fi
+
+if [ ! -e /var/config/settings.dat ]
+then
+    touch \
+        /var/config/settings.bak \
+        /var/config/settings.dat \
+        /var/data/ArcenDebugLog.txt
+fi
+
+cd /app/game/
+./start.sh
