@@ -23,6 +23,9 @@ def main():
         help="Template json to use for game setup.",
         type=argparse.FileType('r'),
         default="com.gog.Template.json")
+    parser.add_argument(
+        '--startoverride',
+        help="Start script to override default")
     args = parser.parse_args()
 
     jsondata = json.load(
@@ -32,6 +35,14 @@ def main():
     archivedata = jsondata['modules'][0]['sources'][0]
     archivedata['path'] = args.tarball
     archivedata['sha256'] = args.sha
+
+    if args.startoverride:
+        jsondata['modules'][0]['sources'].append(
+            collections.OrderedDict([
+                ("type", "file"),
+                ("path", args.startoverride)
+            ])
+        )
 
     print(json.dumps(jsondata, indent=4))
 

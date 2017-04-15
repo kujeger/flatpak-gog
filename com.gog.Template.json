@@ -5,7 +5,7 @@
     "sdk": "org.freedesktop.Sdk",
     "sdk-version": "1.6",
     "base": "com.gog.Base",
-    "command": "gog-starter",
+    "command": "starter",
     "finish-args": [
         "--socket=x11",
         "--share=network",
@@ -36,7 +36,8 @@
                 },
                 {
                     "type": "file",
-                    "path": "gog-starter"
+                    "path": "gog-starter",
+                    "dest-filename": "starter"
                 }
             ]
         }

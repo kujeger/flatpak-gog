@@ -8,6 +8,7 @@ NAME=${FILENAME%.*}
 TMPDIR="${HOME}/tmp/gogextract"
 TARDIR="${TMPDIR}/tarballs"
 TARBALL="${TARDIR}/${NAME}.tar"
+MAKEROPTS=""
 
 if [ ! -d ${TMPDIR}/${NAME} ]
 then
@@ -34,5 +35,12 @@ then
 fi
 
 SHASUM=$(cat ${TARBALL}.sha)
+MAKEROPTS="${TARBALL} --name ${GAMENAME} --sha ${SHASUM}"
 
-./json-maker.py ${TARBALL} --name ${GAMENAME} --sha ${SHASUM} > generated/com.gog.${GAMENAME}.json
+if [ -e overrides/starter-${GAMENAME} ]
+then
+    echo "Starter override found."
+    MAKEROPTS="${MAKEROPTS} --startoverride overrides/starter-${GAMENAME}"
+fi
+
+./json-maker.py ${MAKEROPTS} > gen_com.gog.${GAMENAME}.json
