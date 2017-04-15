@@ -66,7 +66,7 @@ then
     MAKEROPTS="${MAKEROPTS} --configureoverride overrides/configure-${GAMENAME}"
 fi
 
-if jq .${GAMENAME} archlist.json >> /dev/null
+if [ $(jq .${GAMENAME} archlist.json) != "null" ]
 then
     GAMEARCH=$(jq .${GAMENAME} archlist.json | sed 's/"//g')
     if [ ${GAMEARCH} != "i386+x86_64" ]
