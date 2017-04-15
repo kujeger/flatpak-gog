@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ ! -e ${XDG_DATA_HOME}/.defcon ]
+then
+    mkdir ${XDG_DATA_HOME}/.defcon
+fi
+
+if [ ! -e ~/.defcon ]
+then
+    ln -s ${XDG_DATA_HOME}/.defcon ~/.defcon
+fi
+
+cd /app/game/
+./start.sh
