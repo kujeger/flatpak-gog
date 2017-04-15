@@ -5,4 +5,3 @@ install:
 	mkdir -p /app/game /app/bin /app/lib
 	install starter* /app/bin/
 	cp -a game-extract/data/noarch/* /app/game/ || true
-	ln -s /usr/lib/libjson-c.so.2 /app/lib/libjson.so.0
