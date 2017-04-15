@@ -36,9 +36,17 @@
                 },
                 {
                     "type": "file",
-                    "path": "patches/openssl-configure",
+                    "only-arches": [ "i386" ],
+                    "path": "patches/openssl-32-configure",
                     "dest-filename": "configure",
                     "sha256": "f2dc21cb3749c3e751a0989490287cce151071220fe4a0d2817d9ad360f394f1"
+                },
+                {
+                    "type": "file",
+                    "only-arches": [ "x86_64" ],
+                    "path": "patches/openssl-64-configure",
+                    "dest-filename": "configure",
+                    "sha256": "665e8418d55b5d68ead861cf269d89616ff560993cfb2abc08877f059afdb758"
                 }
             ]
         },
@@ -54,6 +62,7 @@
         },
         {
             "name": "libCgGL",
+            "only-arches": [ "i386" ],
             "buildsystem": "simple",
             "build-commands": [
                 "install usr/lib/libCgGL.so /app/lib/",
