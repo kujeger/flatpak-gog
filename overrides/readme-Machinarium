@@ -1,0 +1,2 @@
+Game tries to save savegames and configuration in ~/.macromedia, instead of any of the default XDG paths.
+As part of the starter-script, set up some symlinks so saves and configuration are persistent.
