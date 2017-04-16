@@ -1,9 +1,9 @@
 {
     "app-id": "com.gog.Base",
-    "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
-    "sdk": "org.freedesktop.Sdk",
-    "sdk-version": "1.6",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.22",
+    "sdk": "org.gnome.Sdk",
+    "sdk-version": "3.22",
     "command": "/bin/bash",
     "cleanup": [
         "/include"
