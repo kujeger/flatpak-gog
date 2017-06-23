@@ -1,7 +1,0 @@
-all:
-	true
-
-install:
-	mkdir -p /app/game /app/bin /app/lib
-	install starter* /app/bin/
-	cp -a game-extract/data/noarch/* /app/game/ || true

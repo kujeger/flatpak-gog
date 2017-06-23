@@ -8,16 +8,12 @@ import collections
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'tarball',
-        help="Tarball of extracted game installer.")
+        'installer',
+        help="Game installer.")
     parser.add_argument(
         '--name',
         required=True,
         help="Name of game.")
-    parser.add_argument(
-        '--sha',
-        required=True,
-        help="Sha256 sum of tarball")
     parser.add_argument(
         '--template',
         help="Template json to use for game setup.",
@@ -41,8 +37,7 @@ def main():
     jsondata['app-id'] = "com.gog.{}".format(args.name)
     jsondata['branch'] = args.branch
     archivedata = jsondata['modules'][0]['sources'][0]
-    archivedata['path'] = args.tarball
-    archivedata['sha256'] = args.sha
+    archivedata['path'] = args.installer
 
     if args.startoverride:
         jsondata['modules'][0]['sources'].append(

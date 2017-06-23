@@ -2,9 +2,8 @@
     "app-id": "com.gog.GAMENAME",
     "branch": "master",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.22",
+    "runtime-version": "3.24",
     "sdk": "org.gnome.Sdk",
-    "sdk-version": "3.22",
     "base": "com.gog.Base",
     "base-version": "master",
     "command": "starter",
@@ -24,22 +23,28 @@
     "modules": [
         {
             "name": "game",
-            "no-autogen": true,
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/game /app/bin /app/lib",
+                "install starter* /app/bin/"
+            ],
             "sources": [
                 {
-                    "type": "archive",
-                    "path": "GAMEARCHIVE",
-                    "dest": "game-extract"
-                },
-                {
                     "type": "file",
-                    "path": "gog-Makefile",
-                    "dest-filename": "Makefile"
+                    "path": "GAMEINSTALLER",
+                    "dest-filename": "installer.sh"
                 },
                 {
                     "type": "file",
                     "path": "gog-starter",
                     "dest-filename": "starter"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "chmod +x installer.sh",
+                        "script --return -c './installer.sh -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio' /dev/null"
+                    ]
                 }
             ]
         }
