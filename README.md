@@ -40,7 +40,7 @@ To prepare a game, you can use the provided "maker.sh" script, e.g.
 
 `./maker.sh ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
 
-which will extract the complete installer and tar it up in ~/tmp/gogextract and also create a new json in the current dir based on the com.gog.Template.json file, with a name like gen_com.gog.BaldursGate2EnhancedEdition.json .
+which will create a new json in the current dir based on the com.gog.Template.json file, with a name like gen_com.gog.BaldursGate2EnhancedEdition.json .
 
 You can then build it and export it into a flatpak repo thus:
 
@@ -59,13 +59,11 @@ Install it like this:
 `flatpak run com.gog.BaldursGate2EnhancedEdition`
 
 ## Disk-space use
-maker.sh leaves a tarball of parts of the extracted installer. This tarball is needed by flatpak-builder to build the flatpak, but can safely be deleted after you have made sure the game runs.
+flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can be safely removed once you have the game running.
 
-flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can also be safely removed once you have the game running.
+The flatpak repo contains the games you have packaged. Don't delete this.
 
-the flatpak repo contains the games you have packaged. Don't delete this.
-
-If you are planning to build a lot of flatpaks, disk use will quickly balloon.
+If you are planning to build a lot of flatpaks, disk use will quickly balloon, as each game takes space in both the (local) flatpak repo, and when installed.
 
 ## Troubleshooting
 Sometimes the start.sh script provided from GOG does not work right in our flatpak.
@@ -84,4 +82,4 @@ Things that would be nice to implement:
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
 * DLC installation
-* Use installers as extra-data instead of the current archive hack? extra-data currently only supprots http(s), not local files.
+* Use installers as extra-data instead of embedding the complete game? extra-data currently only supprots http(s), not local files.
