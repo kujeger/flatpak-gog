@@ -6,6 +6,7 @@ import collections
 import zipfile
 import re
 
+
 def getGameInfo(installer, argname, argbranch):
     gameinfo = {}
     with zipfile.ZipFile(installer, 'r') as myzip:
@@ -24,6 +25,7 @@ def getGameInfo(installer, argname, argbranch):
         gameinfo['branch'] = argbranch
 
     return gameinfo
+
 
 def main():
     parser = argparse.ArgumentParser()
