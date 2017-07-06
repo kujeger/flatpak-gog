@@ -26,6 +26,10 @@ def main():
         '--configureoverride',
         help="Additional configure script to add.")
     parser.add_argument(
+        '--extra',
+        nargs='*',
+        help="Additional installers to run (e.g. DLC)")
+    parser.add_argument(
         '--branch',
         help="Branch version.",
         default="master")
@@ -55,6 +59,16 @@ def main():
                 ("dest-filename", "configure")
             ])
         )
+
+    if args.extra:
+        for i, v in enumerate(args.extra):
+            jsondata['modules'][0]['sources'].append(
+                collections.OrderedDict([
+                    ("type", "file"),
+                    ("path", v),
+                    ("dest-filename", "installer-{}.sh".format(i+1))
+                ])
+            )
 
     print(json.dumps(jsondata, indent=4))
 

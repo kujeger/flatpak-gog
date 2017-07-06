@@ -26,25 +26,20 @@
             "buildsystem": "simple",
             "build-commands": [
                 "mkdir -p /app/game /app/bin /app/lib",
-                "install starter* /app/bin/"
+                "install starter* /app/bin/",
+                "for x in installer*.sh; do script --return -c \"sh ${x} -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio\" /dev/null; done",
+                "if [ -e configure ]; then sh configure; fi"
             ],
             "sources": [
                 {
                     "type": "file",
                     "path": "GAMEINSTALLER",
-                    "dest-filename": "installer.sh"
+                    "dest-filename": "installer-0.sh"
                 },
                 {
                     "type": "file",
                     "path": "gog-starter",
                     "dest-filename": "starter"
-                },
-                {
-                    "type": "shell",
-                    "commands": [
-                        "chmod +x installer.sh",
-                        "script --return -c './installer.sh -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio' /dev/null"
-                    ]
                 }
             ]
         }
