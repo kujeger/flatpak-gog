@@ -3,7 +3,27 @@
 import json
 import argparse
 import collections
+import zipfile
+import re
 
+def getGameInfo(installer, argname, argbranch):
+    gameinfo = {}
+    with zipfile.ZipFile(installer, 'r') as myzip:
+        with myzip.open('data/noarch/gameinfo') as myfile:
+            tmplist = myfile.read().decode('utf-8').split('\n')
+            gameinfo['name'] = re.sub(r'[^\w]', '', tmplist[0])
+            gameinfo['gogversion'] = tmplist[1]
+            gameinfo['version'] = tmplist[2]
+            if gameinfo['version'] == 'na':
+                gameinfo['version'] = '1.0'
+            gameinfo['branch'] = gameinfo['version']
+
+    if argname != 'auto':
+        gameinfo['name'] = argname
+    if argbranch != 'auto':
+        gameinfo['branch'] = argbranch
+
+    return gameinfo
 
 def main():
     parser = argparse.ArgumentParser()
@@ -12,7 +32,7 @@ def main():
         help="Game installer.")
     parser.add_argument(
         '--name',
-        required=True,
+        default='auto',
         help="Name of game.")
     parser.add_argument(
         '--template',
@@ -32,16 +52,24 @@ def main():
     parser.add_argument(
         '--branch',
         help="Branch version.",
-        default="master")
+        default='auto')
+    parser.add_argument(
+        '--output',
+        help="File to write json data to.",
+        default='auto')
     args = parser.parse_args()
+
+    gameinfo = getGameInfo(
+            args.installer,
+            args.name,
+            args.branch)
 
     jsondata = json.load(
         args.template, object_pairs_hook=collections.OrderedDict)
 
-    jsondata['app-id'] = "com.gog.{}".format(args.name)
-    jsondata['branch'] = args.branch
-    archivedata = jsondata['modules'][0]['sources'][0]
-    archivedata['path'] = args.installer
+    jsondata['app-id'] = "com.gog.{}".format(gameinfo['name'])
+    jsondata['branch'] = gameinfo['branch']
+    jsondata['modules'][0]['sources'][0]['path'] = args.installer
 
     if args.startoverride:
         jsondata['modules'][0]['sources'].append(
