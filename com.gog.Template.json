@@ -13,9 +13,7 @@
         "--share=ipc",
         "--device=dri",
         "--socket=pulseaudio",
-        "--persist=.local",
-        "--persist=.config",
-        "--persist=.cache"
+        "--persist=."
     ],
     "cleanup": [
         "/include"
