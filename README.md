@@ -82,4 +82,4 @@ Things that would be nice to implement:
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
 * DLC installation
-* Use installers as extra-data instead of embedding the complete game? extra-data currently only supprots http(s), not local files.
+* Use installers as extra-data instead of embedding the complete game? extra-data currently only supports http(s), not local files.
