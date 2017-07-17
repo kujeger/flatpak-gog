@@ -14,13 +14,6 @@ mkdir -p ${TMPDIR}
 echo "Extracting gameinfo."
 unzip -q ${SRCPATH} data/noarch/gameinfo -d ${TMPDIR}/${NAME} || true
 GAMENAME=$(head -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]]//g')
-GOGVERSION=$(head -n 2 ${TMPDIR}/${NAME}/data/noarch/gameinfo | tail -n 1 | sed 's/[^[:alpha:][:digit:]\.]//g')
-GAMEVERSION=$(tail -n 1 ${TMPDIR}/${NAME}/data/noarch/gameinfo | sed 's/[^[:alpha:][:digit:]\.]//g')
-
-if [ ${GAMEVERSION} == "na" ]
-then
-    GAMEVERSION=0
-fi
 
 if [ -d ${TMPDIR}/${NAME} ]
 then
