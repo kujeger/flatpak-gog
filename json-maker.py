@@ -53,8 +53,8 @@ def main():
         help="Additional installers to run (e.g. DLC)")
     parser.add_argument(
         '--branch',
-        help="Branch version.",
-        default='auto')
+        help="Branch version. Use 'auto' to use the game version.",
+        default='master')
     parser.add_argument(
         '--output',
         help="File to write json data to.",
