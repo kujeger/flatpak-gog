@@ -1,6 +1,0 @@
-all:
-	true
-
-install:
-	mkdir -p /app/lib
-	ln -s /usr/lib/libjson-c.so.2 /app/lib/libjson.so.0

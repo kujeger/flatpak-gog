@@ -89,14 +89,10 @@
         },
         {
             "name": "libjson",
-            "no-autogen": true,
-            "sources": [
-                {
-                    "type": "file",
-                    "path": "patches/libjson-Makefile",
-                    "dest-filename": "Makefile",
-                    "sha256": "fba701168bc479c94279215c31ac04192b673c44c7203a1848c5a4f08628f606"
-                }
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/lib",
+                "ln -s /usr/lib/libjson-c.so.2 /app/lib/libjson.so.0"
             ]
         }
     ]
