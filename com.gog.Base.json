@@ -3,7 +3,6 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "3.24",
     "sdk": "org.gnome.Sdk",
-    "sdk-version": "3.24",
     "command": "/bin/bash",
     "cleanup": [
         "/include"
