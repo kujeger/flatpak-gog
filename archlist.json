@@ -19,5 +19,9 @@
     "CostumeQuest": "i386",
     "Machinarium": "i386",
     "PixelJunkShooter": "i386",
-    "ShadowrunDragonfallDirectorsCut": "i386"
+    "ShadowrunDragonfallDirectorsCut": "i386",
+    "TowerfallAscension": "i386+x86_64",
+    "DarkestDungeon": "i386+x86_64",
+    "SatelliteReign": "i386+x86_64",
+    "PillarsofEternity": "x86_64"
 }
