@@ -1,10 +1,8 @@
 # Flatpak generator for GOG installers
 The hope is to have this eventually work with almost any GOG game, but that is probably a ways off.
 
-Presently there are hacks, like decompressing and then re-compressing the installer provided by GOG as it is not "really" a zip, which throws flatpak-builder for a loop.
-
 ## Prerequisites
-You will need flatpak 0.9.1 or later, and `jq`. Both should be available in your repository.
+You will need flatpak 0.9.7 or later, and `jq`. Both should be available in your repository.
 
 This all uses the [gnome flatpak runtime](http://flatpak.org/runtimes.html).
 If you haven't already got it, add the repo like this:
@@ -13,13 +11,13 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install gnome org.gnome.Platform/i386/3.22`
+`flatpak --user install gnome org.gnome.Platform/i386/3.24`
 
-`flatpak --user install gnome org.gnome.Sdk/i386/3.22`
+`flatpak --user install gnome org.gnome.Sdk/i386/3.24`
 
-`flatpak --user install gnome org.gnome.Platform/x86_64/3.22`
+`flatpak --user install gnome org.gnome.Platform/x86_64/3.24`
 
-`flatpak --user install gnome org.gnome.Sdk/x86_64/3.22`
+`flatpak --user install gnome org.gnome.Sdk/x86_64/3.24`
 
 ## Usage
 Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
@@ -61,7 +59,7 @@ Install it like this:
 ## Disk-space use
 flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can be safely removed once you have the game running.
 
-The flatpak repo contains the games you have packaged. Don't delete this.
+The flatpak repo contains the games you have packaged. Don't delete this if you want to be able to reinstall the game.
 
 If you are planning to build a lot of flatpaks, disk use will quickly balloon, as each game takes space in both the (local) flatpak repo, and when installed.
 
@@ -81,5 +79,4 @@ Things that would be nice to implement:
 * It might make sense to create a sort of GOG runtime instead of using the current Base-image approach.
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
-* DLC installation
 * Use installers as extra-data instead of embedding the complete game? extra-data currently only supports http(s), not local files.
