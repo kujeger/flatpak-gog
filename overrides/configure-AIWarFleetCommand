@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-cd game-extract/data/noarch/game/RuntimeData
+cd /app/game/game/RuntimeData
 
 rm -r Save
 rm ArcenDebugLog.txt
