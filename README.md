@@ -2,7 +2,7 @@
 The hope is to have this eventually work with almost any GOG game, but that is probably a ways off.
 
 ## Prerequisites
-You will need flatpak 0.9.7 or later, and `jq`. Both should be available in your repository.
+You will need flatpak 0.9.7 or later, and python3. Both should be available in your repository if not already installed.
 
 This all uses the [gnome flatpak runtime](http://flatpak.org/runtimes.html).
 If you haven't already got it, add the repo like this:
