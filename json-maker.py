@@ -5,9 +5,10 @@ import argparse
 import collections
 import zipfile
 import re
+import os
 
 
-def getGameInfo(installer, argname, argbranch):
+def getGameInfo(installer, argname, argbranch, argarch, archdata):
     gameinfo = {}
     with zipfile.ZipFile(installer, 'r') as myzip:
         with myzip.open('data/noarch/gameinfo') as myfile:
@@ -23,6 +24,11 @@ def getGameInfo(installer, argname, argbranch):
         gameinfo['name'] = argname
     if argbranch != 'auto':
         gameinfo['branch'] = argbranch
+
+    if argarch == 'auto':
+        gameinfo['arch'] = archdata.get(gameinfo['name'])
+    else:
+        gameinfo['arch'] = argarch
 
     return gameinfo
 
@@ -43,10 +49,12 @@ def main():
         default="com.gog.Template.json")
     parser.add_argument(
         '--startoverride',
-        help="Start script to override default.")
+        help="Start script to override default.",
+        default='auto')
     parser.add_argument(
         '--configureoverride',
-        help="Additional configure script to add.")
+        help="Additional configure script to add.",
+        default='auto')
     parser.add_argument(
         '--extra',
         nargs='*',
@@ -56,15 +64,25 @@ def main():
         help="Branch version. Use 'auto' to use the game version.",
         default='master')
     parser.add_argument(
+        '--arch',
+        help="Arch to suggest when building.",
+        default='auto',
+        choices=['auto', 'i386', 'x86_64'])
+    parser.add_argument(
         '--output',
         help="File to write json data to.",
         default='auto')
     args = parser.parse_args()
 
+    with open('archlist.json', 'r') as archfile:
+        archdata = json.load(archfile)
+
     gameinfo = getGameInfo(
             args.installer,
             args.name,
-            args.branch)
+            args.branch,
+            args.arch,
+            archdata)
 
     jsondata = json.load(
         args.template, object_pairs_hook=collections.OrderedDict)
@@ -73,19 +91,25 @@ def main():
     jsondata['branch'] = gameinfo['branch']
     jsondata['modules'][0]['sources'][0]['path'] = args.installer
 
-    if args.startoverride:
+    startoverride = args.startoverride
+    configureoverride = args.configureoverride
+    if startoverride == 'auto':
+        startoverride = "overrides/starter-{}".format(gameinfo['name'])
+    if configureoverride == 'auto':
+        configureoverride = "overrides/configure-{}".format(gameinfo['name'])
+
+    if os.path.isfile(startoverride):
         jsondata['modules'][0]['sources'].append(
             collections.OrderedDict([
                 ("type", "file"),
-                ("path", args.startoverride)
+                ("path", startoverride)
             ])
         )
-
-    if args.configureoverride:
+    if os.path.isfile(configureoverride):
         jsondata['modules'][0]['sources'].append(
             collections.OrderedDict([
                 ("type", "file"),
-                ("path", args.configureoverride),
+                ("path", configureoverride),
                 ("dest-filename", "configure")
             ])
         )
@@ -100,8 +124,22 @@ def main():
                 ])
             )
 
-    print(json.dumps(jsondata, indent=4))
+    if not gameinfo['arch']:
+        print(
+            "WARNING: Arch not specified, and not found in archlist.json - "
+            "defaulting to x86_64!")
+        gameinfo['arch'] = 'x86_64'
 
+    outname = ("gen_com.gog.{}.json".format(gameinfo['name'])
+               if args.output == 'auto' else args.output)
+
+    with open(outname, 'w') as outfile:
+        json.dump(jsondata, outfile, indent=4)
+
+    print("JSON written to {0}\n"
+          "You can build it thus:\n\n"
+          "flatpak-builder builddir {0} --force-clean --repo "
+          "~/FlatPak/gog-repo --arch {1}".format(outname, gameinfo['arch']))
 
 if __name__ == '__main__':
     main()

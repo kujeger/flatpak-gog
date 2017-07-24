@@ -34,9 +34,9 @@ The following will build the Base image, put it into the repo dir "~/FlatPak/gog
 `flatpak --user install gog-repo com.gog.Base/x86_64`
 
 
-To prepare a game, you can use the provided "maker.sh" script, e.g.
+To prepare a game, you can use the provided "json-maker.py" script, e.g.
 
-`./maker.sh ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
+`./json-maker.py ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
 
 which will create a new json in the current dir based on the com.gog.Template.json file, with a name like gen_com.gog.BaldursGate2EnhancedEdition.json .
 
@@ -44,7 +44,7 @@ You can then build it and export it into a flatpak repo thus:
 
 `flatpak-builder build/BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
-(see also the suggested command in the output of maker.sh)
+(see also the suggested command in the output of json-maker.py)
 
 which will build the game flatpak, and put it into the repository at "~/FlatPak/gog-repo".
 
