@@ -7,6 +7,8 @@
     "base": "com.gog.Base",
     "base-version": "master",
     "command": "starter",
+    "rename-desktop-file": "Template.desktop",
+    "rename-icon": "icon",
     "finish-args": [
         "--socket=x11",
         "--share=network",
@@ -23,10 +25,13 @@
             "name": "game",
             "buildsystem": "simple",
             "build-commands": [
-                "mkdir -p /app/game /app/bin /app/lib",
+                "mkdir -p /app/game /app/bin /app/lib /app/share/applications/ /app/share/icons/hicolor/256x256/apps",
                 "install starter* /app/bin/",
                 "for x in installer*.sh; do script --return -c \"sh ${x} -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio\" /dev/null; done",
-                "if [ -e configure ]; then sh configure; fi"
+                "if [ -e configure ]; then sh configure; fi",
+                "install Template.desktop /app/share/applications/",
+                "sed -i='' \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/applications/Template.desktop",
+                "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/"
             ],
             "sources": [
                 {
@@ -38,6 +43,10 @@
                     "type": "file",
                     "path": "gog-starter",
                     "dest-filename": "starter"
+                },
+                {
+                    "type": "file",
+                    "path": "Template.desktop"
                 }
             ]
         }
