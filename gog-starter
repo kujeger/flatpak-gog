@@ -1,8 +1,10 @@
 #!/bin/bash
 
+cd /app/game/
+
 if [ -e /app/bin/starter-* ]
 then
-    /app/bin/starter-*
+    exec /app/bin/starter-* "$@"
 else
-    /app/game/start.sh
+    exec ./start.sh "$@"
 fi
