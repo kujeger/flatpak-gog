@@ -75,7 +75,7 @@ See the [compatibility list](https://github.com/kujeger/flatpak-gog/wiki/Compati
 ## Further work
 Things that would be nice to implement:
 
-* .desktop files for starting the games. Converting the existing files GOG provides should be a good starting point.
+* Converting GOG's .desktop files for cases where there are separate "settings" desktop files.
 * It might make sense to create a sort of GOG runtime instead of using the current Base-image approach.
 * Support more GOG games. Most of this work is likely to be:
   * Additional libraries to install, possibly conflicting with other games.
