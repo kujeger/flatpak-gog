@@ -129,6 +129,8 @@ def main():
             "WARNING: Arch not specified, and not found in archlist.json - "
             "defaulting to x86_64!")
         gameinfo['arch'] = 'x86_64'
+    if gameinfo['arch'] == 'i386+x86_64':
+        gameinfo['arch'] = 'x86_64'
 
     outname = ("gen_com.gog.{}.json".format(gameinfo['name'])
                if args.output == 'auto' else args.output)
