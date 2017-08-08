@@ -1,0 +1,1 @@
+Pillars of Eternity supports custom portraits, but only if placed in the game's data directory. Set up some symlinks and copy the standard portraits (these are only ~13MB) to $XDG_DATA_HOME.

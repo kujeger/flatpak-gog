@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d /var/data/PillarsOfEternity/portraits ]
+then
+    mkdir -p /var/data/PillarsOfEternity/portraits
+    cp -a /app/game/game/PillarsOfEternity_Data/data/art/gui/portraits.bak/* /var/data/PillarsOfEternity/portraits/
+fi
+
+cd /app/game/
+./start.sh

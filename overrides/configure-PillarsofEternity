@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd /app/game/game/PillarsOfEternity_Data/data/art/gui/
+
+mv portraits portraits.bak
+
+ln -s /var/data/PillarsOfEternity/portraits .
