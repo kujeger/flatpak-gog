@@ -140,7 +140,7 @@ def main():
 
     print("JSON written to {0}\n"
           "You can build it thus:\n\n"
-          "flatpak-builder builddir {0} --force-clean --repo "
+          "flatpak-builder build {0} --force-clean --repo "
           "~/FlatPak/gog-repo --arch {1}".format(outname, gameinfo['arch']))
 
 if __name__ == '__main__':
