@@ -25,5 +25,8 @@
     "SatelliteReign": "i386+x86_64",
     "PillarsofEternity": "x86_64",
     "ChaosReborn": "i386+x86_64",
-    "WarfortheOverworld": "x86_64"
+    "WarfortheOverworld": "x86_64",
+    "SpacePiratesAndZombies2": "x86_64",
+    "Braid": "i386",
+    "Bastion": "i386+x86_64"
 }
