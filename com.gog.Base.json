@@ -57,7 +57,7 @@
                     "only-arches": [ "x86_64" ],
                     "path": "patches/openssl-64-configure",
                     "dest-filename": "configure",
-                    "sha256": "665e8418d55b5d68ead861cf269d89616ff560993cfb2abc08877f059afdb758"
+                    "sha256": "cd578ac0a2096e95ce323cd4143cca0bd422423f29abba33fbae208583604c6c"
                 }
             ]
         },
