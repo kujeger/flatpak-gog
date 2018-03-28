@@ -15,7 +15,8 @@
         "--share=ipc",
         "--device=dri",
         "--socket=pulseaudio",
-        "--persist=."
+        "--persist=.",
+        "--env=LD_LIBRARY_PATH=/app/lib"
     ],
     "cleanup": [
         "/include"
