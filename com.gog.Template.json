@@ -32,7 +32,8 @@
                 "if [ -e configure ]; then sh configure; fi",
                 "install Template.desktop /app/share/applications/",
                 "sed -i='' \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/applications/Template.desktop",
-                "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/"
+                "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/",
+                "chmod a+x -R /app/game/game"
             ],
             "sources": [
                 {
