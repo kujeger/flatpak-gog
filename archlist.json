@@ -29,5 +29,6 @@
     "SpacePiratesAndZombies2": "x86_64",
     "Braid": "i386",
     "Bastion": "i386+x86_64",
-    "CultistSimulator": "i386+x86_64"
+    "CultistSimulator": "i386+x86_64",
+    "Warhammer40000GladiusRelicsofWar": "x86_64"
 }
