@@ -94,6 +94,20 @@
                 "mkdir -p /app/lib",
                 "ln -s /usr/lib/libjson-c.so.2 /app/lib/libjson.so.0"
             ]
+        },
+        {
+            "name": "libcaca",
+            "config-opts": [
+                "--enable-ncurses", "--enable-x11", "--disable-doc",
+                "--enable-csharp=no", "--enable-java=no", "--enable-python=no", "--enable-ruby=no"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "http://caca.zoy.org/files/libcaca/libcaca-0.99.beta19.tar.gz",
+                    "sha256": "128b467c4ed03264c187405172a4e83049342cc8cc2f655f53a2d0ee9d3772f4"
+                }
+            ]
         }
     ]
 }
