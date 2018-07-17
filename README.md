@@ -7,17 +7,17 @@ You will need flatpak 0.9.7 or later, and python3. Both should be available in y
 This all uses the [gnome flatpak runtime](http://flatpak.org/runtimes.html).
 If you haven't already got it, add the repo like this:
 
-`flatpak --user remote-add --from gnome https://sdk.gnome.org/gnome.flatpakrepo`
+`flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
 then install the runtime plus SDK:
 
-`flatpak --user install gnome org.gnome.Platform/i386/3.24`
+`flatpak --user install flathub org.gnome.Platform/i386/3.24`
 
-`flatpak --user install gnome org.gnome.Sdk/i386/3.24`
+`flatpak --user install flathub org.gnome.Sdk/i386/3.24`
 
-`flatpak --user install gnome org.gnome.Platform/x86_64/3.24`
+`flatpak --user install flathub org.gnome.Platform/x86_64/3.24`
 
-`flatpak --user install gnome org.gnome.Sdk/x86_64/3.24`
+`flatpak --user install flathub org.gnome.Sdk/x86_64/3.24`
 
 ## Usage
 Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
