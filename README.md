@@ -20,8 +20,16 @@ then install the runtime plus SDK:
 `flatpak --user install flathub org.gnome.Sdk/x86_64/3.24`
 
 ## Usage
-Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
-The following will build the Base image, put it into the repo dir "~/FlatPak/gog-repo", add that repo with the name "gog-repo", and finally install Base:
+When building flatpaks, you can either install them directly or export them to a repository and then install them from that repository. If you're doing everything on a single machine, it probably makes the most sense to install directly. However, if you're going to install on several machines exporting to a (shared) repo makes sense. Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.
+
+In order to build and install directly, run the following commands:
+
+`flatpak-builder --user --install build com.gog.Base.json --force-clean --arch=i386`
+
+`flatpak-builder --user --install build com.gog.Base.json --force-clean --arch=x86_64`
+
+
+In order to build and export to a repo, run the following commands:
 
 `flatpak-builder build/Base32 com.gog.Base.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
@@ -40,19 +48,19 @@ To prepare a game, you can use the provided "json-maker.py" script, e.g.
 
 which will create a new json in the current dir based on the com.gog.Template.json file, with a name like gen_com.gog.BaldursGate2EnhancedEdition.json .
 
-You can then build it and export it into a flatpak repo thus:
+You can then build and install it directly thus:
+
+`flatpak-builder --user --install build ~/src/kujeger/flatpak/flatpak-gog/com.gog.Base.json --force-clean --arch=i386`
+
+Or build and export it to a repo before installing it:
 
 `flatpak-builder build/BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
-(see also the suggested command in the output of json-maker.py)
-
-which will build the game flatpak, and put it into the repository at "~/FlatPak/gog-repo".
-
-Install it like this:
-
 `flatpak --user install gog-repo com.gog.BaldursGate2EnhancedEdition`
 
-..and finally start it up like this:
+(see also the suggested command in the output of json-maker.py)
+
+After installation you can start it like this, or use the desktop/menu icon that should have also been created.
 
 `flatpak run com.gog.BaldursGate2EnhancedEdition`
 
