@@ -31,9 +31,9 @@ In order to build and install directly, run the following commands:
 
 In order to build and export to a repo, run the following commands:
 
-`flatpak-builder build/Base32 com.gog.Base.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build com.gog.Base.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
-`flatpak-builder build/Base64 com.gog.Base.json --force-clean --arch=x86_64 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build com.gog.Base.json --force-clean --arch=x86_64 --repo ~/FlatPak/gog-repo`
 
 `flatpak --user remote-add --no-gpg-verify --if-not-exists gog-repo ~/FlatPak/gog-repo`
 
@@ -50,11 +50,11 @@ which will create a new json in the current dir based on the com.gog.Template.js
 
 You can then build and install it directly thus:
 
-`flatpak-builder --user --install build ~/src/kujeger/flatpak/flatpak-gog/com.gog.Base.json --force-clean --arch=i386`
+`flatpak-builder --user --install build gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386`
 
 Or build and export it to a repo before installing it:
 
-`flatpak-builder build/BaldursGate2EnhancedEdition gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
+`flatpak-builder build gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386 --repo ~/FlatPak/gog-repo`
 
 `flatpak --user install gog-repo com.gog.BaldursGate2EnhancedEdition`
 
