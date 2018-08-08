@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail
+
+cd /app/game/game/
+
+ln -s /var/data/save .

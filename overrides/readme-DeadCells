@@ -1,0 +1,3 @@
+Game tries to save savegames and configuration in game dir, instead of home directory.
+As part of configuration, set up symlink so saves and configuration are persistent.
+The game cannot start unless it is able to the save dir.
