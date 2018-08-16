@@ -31,5 +31,17 @@
     "Bastion": "i386+x86_64",
     "CultistSimulator": "i386+x86_64",
     "Warhammer40000GladiusRelicsofWar": "x86_64",
-    "DeadCells": "x86_64"
+    "DeadCells": "x86_64",
+    "Xenonauts": "i386",
+    "Dex": "i386",
+    "Broforce": "i386+x86_64",
+    "Jotun": "i386+x86_64",
+    "LoversInADangerousSpacetime": "i386+x86_64",
+    "Oxenfree": "i386+x86_64",
+    "PrisonArchitect": "i386+x86_64",
+    "Starbound": "x86_64",
+    "StardewValley": "i386+x86_64",
+    "SunlessSea": "i386+x86_64",
+    "ThimbleweedPark": "x86_64",
+    "WorldofGoo": "i386+x86_64"
 }
