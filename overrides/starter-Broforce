@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d /var/data/Saves ]
+then
+    mkdir /var/data/Saves
+    cp /app/game/game/DebugConfig.txt-orig /var/data/DebugConfig.txt
+fi
+
+cd /app/game/
+./start.sh
