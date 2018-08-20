@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -d /var/data/storage ]
+then
+    mkdir /var/data/storage
+fi
+
+cd /app/game/
+./start.sh

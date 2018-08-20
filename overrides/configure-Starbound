@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+ln -s /var/data/storage .

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+mv DebugConfig.txt DebugConfig.txt-orig
+ln -s /var/data/DebugConfig.txt /app/game/game/DebugConfig.txt
+ln -s /var/data/Saves .
