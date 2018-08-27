@@ -26,7 +26,7 @@
             "name": "game",
             "buildsystem": "simple",
             "build-commands": [
-                "mkdir -p /app/game /app/bin /app/lib /app/share/applications/ /app/share/icons/hicolor/256x256/apps",
+                "mkdir -p /app/game /app/bin /app/lib /app/share/applications/ /app/share/icons/hicolor/256x256/apps /app/share/desktop-directories/",
                 "install starter* /app/bin/",
                 "for x in installer*.sh; do script --return -c \"sh ${x} -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio\" /dev/null; done",
                 "if [ -e configure ]; then sh configure; fi",
