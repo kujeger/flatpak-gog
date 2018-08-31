@@ -139,9 +139,9 @@ def main():
         json.dump(jsondata, outfile, indent=4)
 
     print("JSON written to {0}\n"
-          "You can build it thus:\n\n"
-          "flatpak-builder build {0} --force-clean --repo "
-          "~/FlatPak/gog-repo --arch {1}".format(outname, gameinfo['arch']))
+          "You can build and install it thus:\n\n"
+          "flatpak-builder --user --install build {0}/{1} --force-clean "
+          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
 
 if __name__ == '__main__':
     main()
