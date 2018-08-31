@@ -138,7 +138,7 @@ def main():
     with open(outname, 'w') as outfile:
         json.dump(jsondata, outfile, indent=4)
 
-    print("JSON written to {0}\n"
+    print("JSON written to {1}\n"
           "You can build and install it thus:\n\n"
           "flatpak-builder --user --install build {0}/{1} --force-clean "
           "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
