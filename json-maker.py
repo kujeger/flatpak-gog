@@ -57,8 +57,9 @@ def main():
         default='auto')
     parser.add_argument(
         '--extra',
-        nargs='*',
-        help="Additional installers to run (e.g. DLC)")
+        action='append',
+        default=[],
+        help="Additional installers to run (e.g. DLC). Can be used multiple times.")
     parser.add_argument(
         '--branch',
         help="Branch version. Use 'auto' to use the game version.",
@@ -114,15 +115,14 @@ def main():
             ])
         )
 
-    if args.extra:
-        for i, v in enumerate(args.extra):
-            jsondata['modules'][0]['sources'].append(
-                collections.OrderedDict([
-                    ("type", "file"),
-                    ("path", v),
-                    ("dest-filename", "installer-{}.sh".format(i+1))
-                ])
-            )
+    for i, v in enumerate(args.extra):
+        jsondata['modules'][0]['sources'].append(
+            collections.OrderedDict([
+                ("type", "file"),
+                ("path", v),
+                ("dest-filename", "installer-{}.sh".format(i+1))
+            ])
+        )
 
     if not gameinfo['arch']:
         print(
