@@ -44,5 +44,6 @@
     "SunlessSea": "i386+x86_64",
     "ThimbleweedPark": "x86_64",
     "WorldofGoo": "i386+x86_64",
-    "SteamWorldHeist": "i386"
+    "SteamWorldHeist": "i386",
+    "SteamWorldDig2": "x86_64"
 }
