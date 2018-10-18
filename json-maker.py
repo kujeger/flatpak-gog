@@ -132,6 +132,10 @@ def main():
     if gameinfo['arch'] == 'i386+x86_64':
         gameinfo['arch'] = 'x86_64'
 
+    # app-id cannot start with a digit. Add an underscore if needed.
+    if gameinfo['name'][0].isdigit():
+        jsondata['app-id'] = 'com.gog._'+gameinfo['name']
+
     outname = ("gen_com.gog.{}.json".format(gameinfo['name'])
                if args.output == 'auto' else args.output)
 
