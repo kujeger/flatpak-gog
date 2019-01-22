@@ -1,8 +1,8 @@
 {
     "app-id": "com.gog.Base",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "3.24",
-    "sdk": "org.gnome.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
     "command": "/bin/bash",
     "cleanup": [
         "/include"
@@ -17,22 +17,6 @@
                     "type": "archive",
                     "url": "http://kernel.org/pub/linux/utils/kernel/hotplug/udev-175.tar.bz2",
                     "sha256": "4c7937fe5a1521316ea571188745b9a00a9fdf314228cffc53a7ba9e5968b7ab"
-                }
-            ]
-        },
-        {
-            "name": "openal-soft",
-            "cmake": true,
-            "cleanup": [
-                "/bin",
-                "/share"
-            ],
-            "config-opts": [],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "http://www.openal-soft.org/openal-releases/openal-soft-1.17.2.tar.bz2",
-                    "sha256": "a341f8542f1f0b8c65241a17da13d073f18ec06658e1a1606a8ecc8bbc2b3314"
                 }
             ]
         },

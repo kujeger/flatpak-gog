@@ -11,13 +11,13 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install flathub org.gnome.Platform/i386/3.24`
+`flatpak --user install flathub org.freedesktop.Platform/i386/18.08`
 
-`flatpak --user install flathub org.gnome.Sdk/i386/3.24`
+`flatpak --user install flathub org.freedesktop.Sdk/i386/18.08`
 
-`flatpak --user install flathub org.gnome.Platform/x86_64/3.24`
+`flatpak --user install flathub org.freedesktop.Platform/x86_64/18.08`
 
-`flatpak --user install flathub org.gnome.Sdk/x86_64/3.24`
+`flatpak --user install flathub org.freedesktop.Sdk/x86_64/18.08`
 
 ## Usage
 When building flatpaks, you can either install them directly or export them to a repository and then install them from that repository. If you're doing everything on a single machine, it probably makes the most sense to install directly. However, if you're going to install on several machines exporting to a (shared) repo makes sense. Before you build your first game, you will need to build and install the Base image, for both 32 and 64-bit.

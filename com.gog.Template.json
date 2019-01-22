@@ -1,9 +1,9 @@
 {
     "app-id": "com.gog.GAMENAME",
     "branch": "master",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "3.24",
-    "sdk": "org.gnome.Sdk",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "18.08",
+    "sdk": "org.freedesktop.Sdk",
     "base": "com.gog.Base",
     "base-version": "master",
     "command": "starter",
