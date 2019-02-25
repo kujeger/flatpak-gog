@@ -91,13 +91,21 @@ def main():
     jsondata['app-id'] = "com.gog.{}".format(gameinfo['name'])
     jsondata['branch'] = gameinfo['branch']
     jsondata['modules'][0]['sources'][0]['path'] = args.installer
+    for idx, item in enumerate(jsondata['modules'][0]['build-commands']):
+        if "GAMENAME" in item:
+          item = item.replace("GAMENAME",gameinfo['name'])
+          jsondata['modules'][0]['build-commands'][idx] = item
 
     startoverride = args.startoverride
     configureoverride = args.configureoverride
+    modulesoverride = 'auto'
     if startoverride == 'auto':
         startoverride = "overrides/starter-{}".format(gameinfo['name'])
     if configureoverride == 'auto':
         configureoverride = "overrides/configure-{}".format(gameinfo['name'])
+    if modulesoverride == 'auto':
+        modulesoverride = "overrides/modules-{}.json".format(gameinfo['name'])
+        
 
     if os.path.isfile(startoverride):
         jsondata['modules'][0]['sources'].append(
@@ -114,6 +122,13 @@ def main():
                 ("dest-filename", "configure")
             ])
         )
+    if os.path.isfile(modulesoverride):
+        moduledata = "{}"
+        with open(modulesoverride, 'r') as f:
+            moduledata = json.load(f, object_pairs_hook=collections.OrderedDict)
+            
+        for module in moduledata:
+            jsondata['modules'].append(module)
 
     for i, v in enumerate(args.extra):
         jsondata['modules'][0]['sources'].append(

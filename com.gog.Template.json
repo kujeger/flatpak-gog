@@ -4,19 +4,17 @@
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
-    "base": "com.gog.Base",
-    "base-version": "master",
     "command": "starter",
     "rename-desktop-file": "Template.desktop",
     "rename-icon": "icon",
+    "rename-appdata-file": "template.appdata.xml",
     "finish-args": [
         "--socket=x11",
         "--share=network",
         "--share=ipc",
         "--device=all",
         "--socket=pulseaudio",
-        "--persist=.",
-        "--env=LD_LIBRARY_PATH=/app/lib"
+        "--persist=."
     ],
     "cleanup": [
         "/include"
@@ -31,7 +29,11 @@
                 "for x in installer*.sh; do script --return -c \"sh ${x} -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio\" /dev/null; done",
                 "if [ -e configure ]; then sh configure; fi",
                 "install Template.desktop /app/share/applications/",
+                "mkdir -p /app/share/appdata",
+                "install -m644 template.appdata.xml /app/share/appdata/",
                 "sed -i \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/applications/Template.desktop",
+                "sed -i \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/appdata/template.appdata.xml",
+                "sed -i \"s/SHORTNAME/GAMENAME/g\" /app/share/appdata/template.appdata.xml",
                 "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/",
                 "chmod a+x -R /app/game/game"
             ],
@@ -49,8 +51,14 @@
                 {
                     "type": "file",
                     "path": "Template.desktop"
-                }
+                },
+                {
+                    "type": "file",
+                    "path": "template.appdata.xml"
+                }                
             ]
-        }
+        },
+        "shared-modules/udev/udev-175.json", 
+        "shared-modules/glu/glu-9.0.0.json"        
     ]
 }

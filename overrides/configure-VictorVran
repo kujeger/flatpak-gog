@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+rm -rf i386

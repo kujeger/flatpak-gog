@@ -1,0 +1,72 @@
+[
+  {
+    "name": "libgpg-error",
+    "sources": [
+      {
+        "type": "archive",
+        "url": "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.32.tar.bz2",
+        "sha256": "c345c5e73cc2332f8d50db84a2280abfb1d8f6d4f1858b9daa30404db44540ca"
+      }
+    ]
+  },
+  {
+    "name": "libgcrypt15",
+    "config-opts": [
+      "--disable-static",
+      "--disable-padlock-support"
+    ],
+    "sources": [
+      {
+        "type": "archive",
+        "url": "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.5.6.tar.bz2",
+        "sha256": "301826b5e521c867056fd630aad6f0a60e176d18a017da6bc24b1695df3abe79"
+      }
+    ]
+  },
+  {
+    "name": "gnutls",
+    "config-opts": [
+      "--with-zlib",
+      "--with-included-unistring",
+      "--disable-static",
+      "--disable-guile",
+      "--disable-valgrind-tests"
+    ],
+    "sources": [
+      {
+        "type": "archive",
+        "url": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.19.tar.xz",
+        "sha256": "1936eb64f03aaefd6eb16cef0567457777618573826b94d03376bb6a4afadc44"
+      }
+    ]
+  },
+  {
+    "name": "libcurl-gnutls",
+    "config-opts": [
+      "--disable-ldap",
+      "--disable-ldaps",
+      "--disable-manual",
+      "--disable-versioned-symbols",
+      "--enable-ipv6",
+      "--enable-threaded-resolver",
+      "--without-gssapi",
+      "--without-libidn",
+      "--without-ssl",
+      "--with-gnutls='/app'",
+      "--with-random='/dev/urandom'",
+      "--with-ca-bundle='/etc/ssl/certs/ca-certificates.crt'"
+    ],
+    "post-install": [
+      "mv /app/lib/libcurl{,-gnutls}.so.4.5.0",
+      "rm /app/lib/libcurl.{a,so}*",
+      "ln -s libcurl-gnutls.so.4.5.0 /app/lib/libcurl-gnutls.so.4"
+    ],
+    "sources": [
+      {
+        "type": "archive",
+        "url": "https://curl.haxx.se/download/curl-7.61.0.tar.gz",
+        "sha256": "64141f0db4945268a21b490d58806b97c615d3d0c75bf8c335bbe0efd13b45b5"
+      }
+    ]
+  }
+]
