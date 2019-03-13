@@ -70,6 +70,10 @@ def main():
         default='auto',
         choices=['auto', 'i386', 'x86_64'])
     parser.add_argument(
+        '--repo',
+        help="Define Repository for build command generation",
+        default='repo')
+    parser.add_argument(
         '--output',
         help="File to write json data to.",
         default='auto')
@@ -157,10 +161,13 @@ def main():
     with open(outname, 'w') as outfile:
         json.dump(jsondata, outfile, indent=4)
 
-    print("JSON written to {1}\n"
-          "You can build and install it thus:\n\n"
-          "flatpak-builder --user --install build {0}/{1} --force-clean "
-          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
+#    print("JSON written to {1}\n"
+#          "You can build and install it thus:\n\n"
+#          "flatpak-builder --user --install build {0}/{1} --force-clean "
+#          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
+
+    print("flatpak-builder build {0}/{1} --force-clean --arch {2} --repo {3}".format(os.getcwd(), outname, gameinfo['arch'], args.repo))
+    print("rm -rf build .flatpak-builder")
 
 if __name__ == '__main__':
     main()

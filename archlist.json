@@ -49,5 +49,8 @@
     "SteamWorldDig2": "x86_64",
     "7BillionHumans": "i386+x86_64",
     "Kingdom": "i386+x86_64",
-    "KingdomNewLands": "i386+x86_64"
+    "KingdomNewLands": "i386+x86_64",
+    "DevilDaggers": "x86_64",
+    "GrimFandangoRemastered": "i386",
+    "HumanResourceMachine": "i386+x86_64"
 }
