@@ -10,6 +10,7 @@
     "rename-appdata-file": "template.appdata.xml",
     "finish-args": [
         "--socket=x11",
+        "--socket=wayland",
         "--share=network",
         "--share=ipc",
         "--device=all",
