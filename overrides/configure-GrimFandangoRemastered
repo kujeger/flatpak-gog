@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /app/game/game/bin
+
+rm -rf i386
+ln -s /var/data/Saves .
