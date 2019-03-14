@@ -3,4 +3,5 @@
 cd /app/game/game/bin
 
 rm -rf i386
+chmod +x GrimFandango
 ln -s /var/data/Saves .

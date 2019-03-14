@@ -5,5 +5,5 @@ then
     mkdir /var/data/Saves
 fi
 
-cd /app/game/
-./start.sh
+cd /app/game/game/bin/
+./GrimFandango
