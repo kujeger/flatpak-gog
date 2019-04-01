@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /app/game/
+SDL_AUDIODRIVER=pulse sh start.sh
