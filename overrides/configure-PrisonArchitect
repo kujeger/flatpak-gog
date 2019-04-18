@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+rm lib/libSDL*
+rm lib64/libSDL*

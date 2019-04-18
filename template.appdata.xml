@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop">
+  <id>com.gog.SHORTNAME</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <name>LONGNAME</name>
+  <summary>LONGNAME from GOG</summary>
+  <description>
+  </description>
+</component>
