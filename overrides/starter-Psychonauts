@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d /var/data/fptmp ]
+then
+    mkdir /var/data/fptmp
+    touch /var/data/Psychonauts.ini
+fi
+
+cd /app/game/
+./start.sh "$@"

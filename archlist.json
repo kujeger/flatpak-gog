@@ -52,5 +52,6 @@
     "KingdomNewLands": "i386+x86_64",
     "DevilDaggers": "x86_64",
     "GrimFandangoRemastered": "i386",
-    "HumanResourceMachine": "i386+x86_64"
+    "HumanResourceMachine": "i386+x86_64",
+    "Psychonauts": "i386"
 }

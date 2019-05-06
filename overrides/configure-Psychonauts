@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+ln -s /var/data/Psychonauts.ini /app/game/game/Psychonauts.ini
+rm libopenal*
+rm libSDL*
