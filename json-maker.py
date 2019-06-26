@@ -78,6 +78,11 @@ def main():
         '--output',
         help="File to write json data to.",
         default='auto')
+    parser.add_argument(
+        '--verbose',
+        '-v',
+        default=0,
+        action='count')
     args = parser.parse_args()
 
     with open('archlist.json', 'r') as archfile:
@@ -162,10 +167,14 @@ def main():
     with open(outname, 'w') as outfile:
         json.dump(jsondata, outfile, indent=4)
 
-    print("JSON written to {1}\n"
-          "You can build and install it thus:\n\n"
-          "flatpak-builder --user --install build {0}/{1} --force-clean "
-          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
+    if args.verbose > 0:
+        print("JSON written to {1}\n"
+              "You can build and install it thus:\n\n"
+              "flatpak-builder --user --install build {0}/{1} --force-clean "
+              "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
+    else:
+        print("flatpak-builder --user --install build {0}/{1} --force-clean "
+              "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
 
 if __name__ == '__main__':
     main()
