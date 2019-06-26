@@ -59,7 +59,8 @@ def main():
         '--extra',
         action='append',
         default=[],
-        help="Additional installers to run (e.g. DLC). Can be used multiple times.")
+        help="Additional installers to run (e.g. DLC). " +
+             "Can be used multiple times.")
     parser.add_argument(
         '--branch',
         help="Branch version. Use 'auto' to use the game version.",
@@ -97,8 +98,8 @@ def main():
     jsondata['modules'][0]['sources'][0]['path'] = args.installer
     for idx, item in enumerate(jsondata['modules'][0]['build-commands']):
         if "GAMENAME" in item:
-          item = item.replace("GAMENAME",gameinfo['name'])
-          jsondata['modules'][0]['build-commands'][idx] = item
+            item = item.replace("GAMENAME", gameinfo['name'])
+            jsondata['modules'][0]['build-commands'][idx] = item
 
     startoverride = args.startoverride
     configureoverride = args.configureoverride
@@ -109,7 +110,6 @@ def main():
         configureoverride = "overrides/configure-{}".format(gameinfo['name'])
     if modulesoverride == 'auto':
         modulesoverride = "overrides/modules-{}.json".format(gameinfo['name'])
-        
 
     if os.path.isfile(startoverride):
         jsondata['modules'][0]['sources'].append(
@@ -129,8 +129,9 @@ def main():
     if os.path.isfile(modulesoverride):
         moduledata = "{}"
         with open(modulesoverride, 'r') as f:
-            moduledata = json.load(f, object_pairs_hook=collections.OrderedDict)
-            
+            moduledata = json.load(
+                            f, object_pairs_hook=collections.OrderedDict)
+
         for module in moduledata:
             jsondata['modules'].append(module)
 
@@ -161,13 +162,10 @@ def main():
     with open(outname, 'w') as outfile:
         json.dump(jsondata, outfile, indent=4)
 
-#    print("JSON written to {1}\n"
-#          "You can build and install it thus:\n\n"
-#          "flatpak-builder --user --install build {0}/{1} --force-clean "
-#          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
-
-    print("flatpak-builder build {0}/{1} --force-clean --arch {2} --repo {3}".format(os.getcwd(), outname, gameinfo['arch'], args.repo))
-    print("rm -rf build .flatpak-builder")
+    print("JSON written to {1}\n"
+          "You can build and install it thus:\n\n"
+          "flatpak-builder --user --install build {0}/{1} --force-clean "
+          "--arch {2}".format(os.getcwd(), outname, gameinfo['arch']))
 
 if __name__ == '__main__':
     main()
