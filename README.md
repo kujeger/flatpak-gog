@@ -39,10 +39,6 @@ After installation you can start it like this, or use the desktop/menu icon that
 ## Disk-space use
 flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can be safely removed once you have the game running.
 
-The flatpak repo contains the games you have packaged. Don't delete this if you want to be able to reinstall the game.
-
-If you are planning to build a lot of flatpaks, disk use will quickly balloon, as each game takes space in both the (local) flatpak repo, and when installed.
-
 ## Troubleshooting
 Sometimes the start.sh script provided from GOG does not work right in our flatpak.
 You can "override" this by placing a custom start-script in overrides/starter-GAMENAME .
