@@ -56,9 +56,9 @@
                 {
                     "type": "file",
                     "path": "template.appdata.xml"
-                }                
+                }
             ]
         },
-        "shared-modules/glu/glu-9.0.0.json"        
+        "shared-modules/glu/glu-9.0.0.json"
     ]
 }
