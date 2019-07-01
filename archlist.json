@@ -1,8 +1,8 @@
 {
     "AnotherWorld20thAnniversaryEdition": "i386+x86_64",
-    "Crimsonland": "i386",
+    "Crimsonland": "x86_64",
     "DefendersQuest": "x86_64",
-    "BaldursGateEnhancedEdition": "i386",
+    "BaldursGateEnhancedEdition": "i386+x86_64",
     "BaldursGate2EnhancedEdition": "i386+x86_64",
     "IcewindDaleEnhancedEdition": "i386+x86_64",
     "PlanescapeTormentEnhancedEdition": "i386+x86_64",
