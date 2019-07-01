@@ -1,0 +1,18 @@
+{
+  "name": "sdl12-compat",
+  "buildsystem": "simple",
+  "build-commands": [
+    "sed -i 's|/usr/local/include/SDL2|/usr/include/SDL2|g' CMakeLists.txt",
+    "sed -i 's|/usr/X11/include|/usr/include/X11|g' CMakeLists.txt",
+    "cmake .",
+    "make SDL",
+    "install -Dm644 libSDL* /app/lib/"
+  ],
+  "sources": [
+    {
+      "type": "archive",
+      "url": "https://hg.libsdl.org/sdl12-compat/archive/tip.tar.bz2",
+      "sha256": "3bed6fa6a0232e6a45241dc83d7ee4c7db709503c5ed2fe3d344df92d14e1ca8"
+    }
+  ]
+}

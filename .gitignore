@@ -1,3 +1,5 @@
 gen_com.gog*
 .flatpak-builder/
 build/
+games/
+*.sh

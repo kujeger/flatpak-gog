@@ -1,8 +1,8 @@
 {
     "AnotherWorld20thAnniversaryEdition": "i386+x86_64",
-    "Crimsonland": "i386",
+    "Crimsonland": "x86_64",
     "DefendersQuest": "x86_64",
-    "BaldursGateEnhancedEdition": "i386",
+    "BaldursGateEnhancedEdition": "i386+x86_64",
     "BaldursGate2EnhancedEdition": "i386+x86_64",
     "IcewindDaleEnhancedEdition": "i386+x86_64",
     "PlanescapeTormentEnhancedEdition": "i386+x86_64",
@@ -44,7 +44,15 @@
     "SunlessSea": "i386+x86_64",
     "ThimbleweedPark": "x86_64",
     "WorldofGoo": "i386+x86_64",
+    "VictorVran": "i386",
     "SteamWorldHeist": "i386",
     "SteamWorldDig2": "x86_64",
-    "7BillionHumans": "i386+x86_64"
+    "7BillionHumans": "i386+x86_64",
+    "Kingdom": "i386+x86_64",
+    "KingdomNewLands": "i386+x86_64",
+    "DevilDaggers": "x86_64",
+    "GrimFandangoRemastered": "i386",
+    "HumanResourceMachine": "i386+x86_64",
+    "Psychonauts": "i386",
+    "world_of_goo": "i386+x86_64"
 }
