@@ -54,5 +54,8 @@
     "GrimFandangoRemastered": "i386",
     "HumanResourceMachine": "i386+x86_64",
     "Psychonauts": "i386",
-    "world_of_goo": "i386+x86_64"
+    "world_of_goo": "i386+x86_64",
+    "Tacoma": "x86_64",
+    "JYDGE": "x86_64",
+    "NeonChrome": "x86_64"
 }
