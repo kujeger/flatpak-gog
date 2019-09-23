@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -L $HOME/IONFury ]
+then
+    ln -s $XDG_DATA_HOME/game $HOME/IONFury
+fi
+
+cd $HOME/IONFury
+./start.sh

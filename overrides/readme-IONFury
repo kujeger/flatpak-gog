@@ -1,0 +1,1 @@
+ION Fury writes settings and saves to the game directory. As a workaround, symlink all game files to $XDG_DATA_HOME .
