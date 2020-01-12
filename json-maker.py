@@ -28,8 +28,16 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
 
     if argarch == 'auto':
         gameinfo['arch'] = archdata.get(gameinfo['name'])
+        if not gameinfo['arch']:
+            print(
+                "WARNING: Arch not specified, and not found in archlist.json - "
+                "defaulting to x86_64!"
+            )
+            gameinfo['arch'] = 'x86_64'
     else:
         gameinfo['arch'] = argarch
+    if gameinfo['arch'] == 'i386+x86_64':
+            gameinfo['arch'] = 'x86_64'
 
     return gameinfo
 
@@ -183,14 +191,6 @@ def main() -> None:
 
         for module in moduledata:
             jsondata['modules'].append(module)
-
-    if not gameinfo['arch']:
-        print(
-            "WARNING: Arch not specified, and not found in archlist.json - "
-            "defaulting to x86_64!")
-        gameinfo['arch'] = 'x86_64'
-    if gameinfo['arch'] == 'i386+x86_64':
-        gameinfo['arch'] = 'x86_64'
 
     # app-id cannot start with a digit. Add an underscore if needed.
     if gameinfo['name'][0].isdigit():
