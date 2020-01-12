@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-import json
 import argparse
-import collections
-import zipfile
-import re
+import json
 import os
+import re
+import zipfile
+from collections import OrderedDict
+from typing import Mapping, Sequence, TextIO
 
 
 def getGameInfo(installer, argname, argbranch, argarch, archdata):
@@ -48,6 +49,11 @@ def parseArgs() -> argparse.Namespace:
         type=argparse.FileType('r'),
         default="com.gog.Template.json")
     parser.add_argument(
+        '--gamemodule',
+        help="Template json of the game module.",
+        type=argparse.FileType('r'),
+        default="modules/game.Template.json")
+    parser.add_argument(
         '--startoverride',
         help="Start script to override default.",
         default='auto')
@@ -86,6 +92,52 @@ def parseArgs() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def getGameModule(
+    gamemodule_template: TextIO,
+    gameinfo: Mapping[str, str],
+    installer: str,
+    startoverride: str,
+    configureoverride: str,
+    extra: Sequence[str],
+) -> OrderedDict:
+    """Generate the game module to be included in the output file."""
+    moduledata = json.load(gamemodule_template, object_pairs_hook=OrderedDict)
+
+    moduledata['sources'][0]['path'] = installer
+
+    buildcommands = moduledata['build-commands']
+    for idx, item in enumerate(buildcommands):
+        buildcommands[idx] = item.replace("GAMENAME", gameinfo['name'])
+
+    if os.path.isfile(startoverride):
+        moduledata['sources'].append(
+            OrderedDict([
+                ("type", "file"),
+                ("path", startoverride)
+            ])
+        )
+
+    if os.path.isfile(configureoverride):
+        moduledata['sources'].append(
+            OrderedDict([
+                ("type", "file"),
+                ("path", configureoverride),
+                ("dest-filename", "configure")
+            ])
+        )
+
+    for i, v in enumerate(extra):
+        moduledata['sources'].append(
+            OrderedDict([
+                ("type", "file"),
+                ("path", v),
+                ("dest-filename", "installer-{}.sh".format(i+1))
+            ])
+        )
+
+    return moduledata
+
+
 def main() -> None:
     args = parseArgs()
 
@@ -99,16 +151,10 @@ def main() -> None:
             args.arch,
             archdata)
 
-    jsondata = json.load(
-        args.template, object_pairs_hook=collections.OrderedDict)
+    jsondata = json.load(args.template, object_pairs_hook=OrderedDict)
 
     jsondata['app-id'] = "com.gog.{}".format(gameinfo['name'])
     jsondata['branch'] = gameinfo['branch']
-    jsondata['modules'][0]['sources'][0]['path'] = args.installer
-    for idx, item in enumerate(jsondata['modules'][0]['build-commands']):
-        if "GAMENAME" in item:
-            item = item.replace("GAMENAME", gameinfo['name'])
-            jsondata['modules'][0]['build-commands'][idx] = item
 
     startoverride = args.startoverride
     configureoverride = args.configureoverride
@@ -120,38 +166,23 @@ def main() -> None:
     if modulesoverride == 'auto':
         modulesoverride = "overrides/modules-{}.json".format(gameinfo['name'])
 
-    if os.path.isfile(startoverride):
-        jsondata['modules'][0]['sources'].append(
-            collections.OrderedDict([
-                ("type", "file"),
-                ("path", startoverride)
-            ])
-        )
-    if os.path.isfile(configureoverride):
-        jsondata['modules'][0]['sources'].append(
-            collections.OrderedDict([
-                ("type", "file"),
-                ("path", configureoverride),
-                ("dest-filename", "configure")
-            ])
-        )
+    gamemodule = getGameModule(
+        args.gamemodule,
+        gameinfo,
+        args.installer,
+        startoverride,
+        configureoverride,
+        args.extra,
+    )
+    jsondata['modules'].insert(0, gamemodule)
+
     if os.path.isfile(modulesoverride):
         moduledata = "{}"
         with open(modulesoverride, 'r') as f:
-            moduledata = json.load(
-                            f, object_pairs_hook=collections.OrderedDict)
+            moduledata = json.load(f, object_pairs_hook=OrderedDict)
 
         for module in moduledata:
             jsondata['modules'].append(module)
-
-    for i, v in enumerate(args.extra):
-        jsondata['modules'][0]['sources'].append(
-            collections.OrderedDict([
-                ("type", "file"),
-                ("path", v),
-                ("dest-filename", "installer-{}.sh".format(i+1))
-            ])
-        )
 
     if not gameinfo['arch']:
         print(
