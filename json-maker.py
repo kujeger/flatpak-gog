@@ -14,12 +14,15 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
     with zipfile.ZipFile(installer, 'r') as myzip:
         with myzip.open('data/noarch/gameinfo') as myfile:
             tmplist = myfile.read().decode('utf-8').split('\n')
-            gameinfo['name'] = re.sub(r'[^\w]', '', tmplist[0])
+            gameinfo['orig-name'] = tmplist[0]
             gameinfo['gogversion'] = tmplist[1]
             gameinfo['version'] = tmplist[2]
             if gameinfo['version'] == 'na':
                 gameinfo['version'] = '1.0'
             gameinfo['branch'] = gameinfo['version']
+
+    gameinfo['name'] = sanitizedName(gameinfo['orig-name'])
+    gameinfo['app-id'] = appIDFromName(gameinfo['orig-name'])
 
     if argname != 'auto':
         gameinfo['name'] = argname
@@ -40,6 +43,23 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
             gameinfo['arch'] = 'x86_64'
 
     return gameinfo
+
+
+def sanitizedName(name: str) -> str:
+    """Sanitize name, so it can be used in filenames."""
+    # Remove whitespace
+    return re.sub(r'[^\w]', '', name)
+
+
+def appIDFromName(name: str) -> str:
+    """Returns a valid AppID for a given name."""
+    # Converts name to CamelCase.
+    namecc = sanitizedName(name)
+    # app-id cannot start with a digit. Add an underscore if needed.
+    if namecc[0].isdigit():
+        return 'com.gog._' + namecc
+    else:
+        return 'com.gog.' + namecc
 
 
 def parseArgs() -> argparse.Namespace:
@@ -161,7 +181,7 @@ def main() -> None:
 
     jsondata = json.load(args.template, object_pairs_hook=OrderedDict)
 
-    jsondata['app-id'] = "com.gog.{}".format(gameinfo['name'])
+    jsondata['app-id'] = gameinfo['app-id']
     jsondata['branch'] = gameinfo['branch']
 
     startoverride = args.startoverride
@@ -192,11 +212,7 @@ def main() -> None:
         for module in moduledata:
             jsondata['modules'].append(module)
 
-    # app-id cannot start with a digit. Add an underscore if needed.
-    if gameinfo['name'][0].isdigit():
-        jsondata['app-id'] = 'com.gog._'+gameinfo['name']
-
-    outname = ("gen_com.gog.{}.json".format(gameinfo['name'])
+    outname = ("gen_{}.json".format(gameinfo['app-id'])
                if args.output == 'auto' else args.output)
 
     with open(outname, 'w') as outfile:
