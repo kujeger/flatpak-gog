@@ -33,7 +33,7 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
     return gameinfo
 
 
-def main():
+def parseArgs() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'installer',
@@ -83,7 +83,11 @@ def main():
         '-v',
         default=0,
         action='count')
-    args = parser.parse_args()
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parseArgs()
 
     with open('archlist.json', 'r') as archfile:
         archdata = json.load(archfile)
