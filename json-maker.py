@@ -6,7 +6,10 @@ import os
 import re
 import zipfile
 from collections import OrderedDict
-from typing import Mapping, Sequence, TextIO
+from typing import Dict, Mapping, Optional, Sequence, TextIO
+
+DEFAULT_TEMPLATE = "com.gog.Template.json"
+I386_COMPAT_TEMPLATE = "com.gog.i386-compat.Template.json"
 
 
 def getGameInfo(installer, argname, argbranch, argarch, archdata):
@@ -75,7 +78,7 @@ def parseArgs() -> argparse.Namespace:
         '--template',
         help="Template json to use for game setup.",
         type=argparse.FileType('r'),
-        default="com.gog.Template.json")
+        default=None)
     parser.add_argument(
         '--gamemodule',
         help="Template json of the game module.",
@@ -166,6 +169,21 @@ def getGameModule(
     return moduledata
 
 
+def readTemplate(arch: str, template: Optional[TextIO]) -> Dict:
+    """Read the content of the JSON template.
+
+    Notes:
+        - If arch is i386 the compatibility template is used.
+        - The template can always be overridden by `template`.
+    """
+    if template:
+        return json.load(template, object_pairs_hook=OrderedDict)
+    else:
+        filename = I386_COMPAT_TEMPLATE if (arch == "i386") else DEFAULT_TEMPLATE
+        with open(filename, 'r') as file:
+            return json.load(file, object_pairs_hook=OrderedDict)
+
+
 def main() -> None:
     args = parseArgs()
 
@@ -179,7 +197,7 @@ def main() -> None:
             args.arch,
             archdata)
 
-    jsondata = json.load(args.template, object_pairs_hook=OrderedDict)
+    jsondata = readTemplate(gameinfo['arch'], args.template)
 
     jsondata['app-id'] = gameinfo['app-id']
     jsondata['branch'] = gameinfo['branch']
