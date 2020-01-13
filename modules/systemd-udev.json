@@ -44,8 +44,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/systemd/systemd/archive/v241.tar.gz",
-          "sha256": "b2561a8e1d10a2c248253f0dda31a85dd6d69f2b54177de55e02cd1d2778316e"
+          "url": "https://github.com/systemd/systemd/archive/v244.tar.gz",
+          "sha256": "2207ceece44108a04bdd5459aa74413d765a829848109da6f5f836c25aa393aa"
         }
       ],
       "cleanup": [
