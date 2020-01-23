@@ -1,0 +1,15 @@
+{
+    "name": "compat",
+    "buildsystem": "simple",
+    "build-commands": [
+        "mkdir -p /app/lib/i386-linux-gnu",
+        "mkdir -p  /app/lib/debug/lib/i386-linux-gnu",
+        "install -Dm644 -t /app/etc ld.so.conf"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "path": "ld.so.conf"
+        }
+    ]
+}

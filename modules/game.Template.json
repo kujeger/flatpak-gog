@@ -1,0 +1,38 @@
+{
+    "name": "game",
+    "buildsystem": "simple",
+    "build-commands": [
+        "mkdir -p /app/game /app/bin /app/lib /app/share/applications/ /app/share/icons/hicolor/256x256/apps /app/share/desktop-directories/",
+        "install starter* /app/bin/",
+        "for x in installer*.sh; do script --return -c \"sh ${x} -- --notermspawn --i-agree-to-all-licenses --noreadme --nooptions --noprompt --destination /app/game --ui=stdio\" /dev/null; done",
+        "if [ -e configure ]; then sh configure; fi",
+        "install Template.desktop /app/share/applications/",
+        "mkdir -p /app/share/appdata",
+        "install -m644 template.appdata.xml /app/share/appdata/",
+        "sed -i \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/applications/Template.desktop",
+        "sed -i \"s/LONGNAME/$(head -n 1 /app/game/gameinfo)/g\" /app/share/appdata/template.appdata.xml",
+        "sed -i \"s/SHORTNAME/GAMENAME/g\" /app/share/appdata/template.appdata.xml",
+        "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/",
+        "chmod a+x -R /app/game/game"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "path": "GAMEINSTALLER",
+            "dest-filename": "installer-0.sh"
+        },
+        {
+            "type": "file",
+            "path": "gog-starter",
+            "dest-filename": "starter"
+        },
+        {
+            "type": "file",
+            "path": "Template.desktop"
+        },
+        {
+            "type": "file",
+            "path": "template.appdata.xml"
+        }
+    ]
+}

@@ -11,13 +11,19 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install flathub org.freedesktop.Platform/i386/19.08`
-
-`flatpak --user install flathub org.freedesktop.Sdk/i386/19.08`
-
 `flatpak --user install flathub org.freedesktop.Platform/x86_64/19.08`
 
 `flatpak --user install flathub org.freedesktop.Sdk/x86_64/19.08`
+
+For x86 games additionally install the required compatibility packages:
+
+`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/19.08`
+
+`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/19.08`
+
+`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/19.08`
+
+`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/19.08`
 
 ## Usage
 To prepare a game, you can use the provided "json-maker.py" script, e.g.
@@ -28,7 +34,7 @@ which will create a new json in the current dir based on the com.gog.Template.js
 
 You can then build and install it directly thus:
 
-`flatpak-builder --user --install build gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=i386`
+`flatpak-builder --user --install build gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=x86_64`
 
 (see also the suggested command in the output of json-maker.py)
 
