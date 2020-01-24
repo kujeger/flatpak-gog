@@ -236,15 +236,14 @@ def main() -> None:
     with open(outname, 'w') as outfile:
         json.dump(jsondata, outfile, indent=4)
 
-    buildarch = "x86_64" if gameinfo['arch'] == "i386" else gameinfo['arch']
     if args.verbose > 0:
         print("JSON written to {1}\n"
               "You can build and install it thus:\n\n"
               "flatpak-builder --user --install build {0}/{1} --force-clean "
-              "--arch {2}".format(os.getcwd(), outname, buildarch))
+              "--arch x86_64".format(os.getcwd(), outname))
     else:
         print("flatpak-builder --user --install build {0}/{1} --force-clean "
-              "--arch {2}".format(os.getcwd(), outname, buildarch))
+              "--arch x86_64".format(os.getcwd(), outname))
 
 if __name__ == '__main__':
     main()

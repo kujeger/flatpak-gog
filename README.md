@@ -3,6 +3,7 @@ The hope is to have this eventually work with almost any GOG game, but that is p
 
 ## Prerequisites
 You will need flatpak 0.9.7 or later, and python3. Both should be available in your repository if not already installed.
+64-bit OS only, but building and playing 32-bit games works.
 
 This all uses the [Freedesktop runtime](http://flatpak.org/runtimes.html).
 If you haven't already got it, add the repo like this:
