@@ -20,17 +20,13 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
             gameinfo['orig-name'] = tmplist[0]
             gameinfo['gogversion'] = tmplist[1]
             gameinfo['version'] = tmplist[2]
-            if gameinfo['version'] == 'na':
-                gameinfo['version'] = '1.0'
-            gameinfo['branch'] = gameinfo['version']
+            gameinfo['branch'] = argbranch
 
     gameinfo['name'] = sanitizedName(gameinfo['orig-name'])
     gameinfo['app-id'] = appIDFromName(gameinfo['orig-name'])
 
     if argname != 'auto':
         gameinfo['name'] = argname
-    if argbranch != 'auto':
-        gameinfo['branch'] = argbranch
 
     if argarch == 'auto':
         gameinfo['arch'] = archdata.get(gameinfo['name'])
@@ -100,17 +96,13 @@ def parseArgs() -> argparse.Namespace:
              "Can be used multiple times.")
     parser.add_argument(
         '--branch',
-        help="Branch version. Use 'auto' to use the game version.",
+        help="Branch name.",
         default='master')
     parser.add_argument(
         '--arch',
-        help="Arch to suggest when building.",
+        help="Arch of game.",
         default='auto',
         choices=['auto', 'i386', 'x86_64'])
-    parser.add_argument(
-        '--repo',
-        help="Define Repository for build command generation",
-        default='repo')
     parser.add_argument(
         '--output',
         help="File to write json data to.",
