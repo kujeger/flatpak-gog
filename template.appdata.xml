@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component type="desktop">
-  <id>com.gog.SHORTNAME</id>
+  <id>com.gog.TEMPLATESHORTNAME</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>proprietary</project_license>
-  <name>LONGNAME</name>
-  <summary>LONGNAME from GOG</summary>
+  <name>TEMPLATELONGNAME</name>
+  <summary>TEMPLATELONGNAME from GOG</summary>
   <description>
   </description>
   <categories>
     <category>Game</category>
   </categories>
+  <releases>
+    <release version="TEMPLATEVERSIONSTRING" date="TEMPLATEVERSIONDATE">
+      <description>Version from GOG</description>
+    </release>
+  </releases>
 </component>

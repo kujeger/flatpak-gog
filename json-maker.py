@@ -21,6 +21,8 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
             gameinfo['gogversion'] = tmplist[1]
             gameinfo['version'] = tmplist[2]
             gameinfo['branch'] = argbranch
+        gogversiondate = myzip.getinfo('data/noarch/gameinfo').date_time
+        gameinfo['gogversiondate'] = "{}-{}-{}".format(gogversiondate[0], gogversiondate[1], gogversiondate[2])
 
     gameinfo['name'] = sanitizedName(gameinfo['orig-name'])
     gameinfo['app-id'] = appIDFromName(gameinfo['orig-name'])
@@ -130,7 +132,11 @@ def getGameModule(
 
     buildcommands = moduledata['build-commands']
     for idx, item in enumerate(buildcommands):
-        buildcommands[idx] = item.replace("GAMENAME", gameinfo['name'])
+        newstring = item.replace("REPLACELONGNAME", gameinfo['orig-name'])
+        newstring = newstring.replace("REPLACESHORTNAME", gameinfo['name'])
+        newstring = newstring.replace("REPLACEVERSIONSTRING", gameinfo['gogversion'])
+        newstring = newstring.replace("REPLACEVERSIONDATE", gameinfo['gogversiondate'])
+        buildcommands[idx] = newstring
 
     if os.path.isfile(startoverride):
         moduledata['sources'].append(
