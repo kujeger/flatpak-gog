@@ -1,11 +1,10 @@
 [
     {
         "name": "libCgGL",
-        "only-arches": [ "i386" ],
         "buildsystem": "simple",
         "build-commands": [
-            "install usr/lib/libCgGL.so /app/lib/",
-            "install usr/lib/libCg.so /app/lib/"
+            "install usr/lib/libCgGL.so /app/lib32/",
+            "install usr/lib/libCg.so /app/lib32/"
         ],
         "sources": [
             {
