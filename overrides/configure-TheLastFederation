@@ -4,9 +4,9 @@ set -euo pipefail
 
 cd /app/game/game/RuntimeData
 
-rm -r Save
+rm -rf ArcenDebugLog.txt
 
 ln -s /var/data/Save .
-ln -s /var/data/ArcenDebugLog.txt
+ln -s /var/data/ArcenDebugLog.txt .
 ln -s /var/config/settings.bak .
 ln -s /var/config/settings.dat .
