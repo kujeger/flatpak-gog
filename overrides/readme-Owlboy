@@ -1,0 +1,1 @@
+Game tries to write-open fonts, even though it only reads them, and then crashes when it can't.

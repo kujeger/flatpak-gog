@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -d /var/data/fonts ]
+then
+    cp -r /app/game/game/content/fonts /var/data/
+fi
+
+cd /app/game/
+./start.sh

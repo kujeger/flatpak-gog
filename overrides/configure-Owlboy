@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /app/game/game/content/
+
+mv fonts fonts-orig
+
+ln -s /var/data/fonts .
