@@ -114,6 +114,8 @@ def parseArgs() -> argparse.Namespace:
         action='count')
     return parser.parse_args()
 
+args = parseArgs()
+
 
 def getGameModule(
     gamemodule_template: TextIO,
@@ -181,8 +183,6 @@ def readTemplate(arch: str, template: Optional[TextIO]) -> Dict:
 
 
 def main() -> None:
-    args = parseArgs()
-
     with open('archlist.json', 'r') as archfile:
         archdata = json.load(archfile)
 
