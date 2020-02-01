@@ -8,7 +8,7 @@ import re
 import zipfile
 from collections import OrderedDict
 from dataclasses import dataclass, field
-from typing import Any, Callable, List, Mapping, Optional, Sequence, TextIO
+from typing import Any, Callable, List, Mapping, Optional, TextIO
 
 from typing_extensions import Literal
 
@@ -16,6 +16,8 @@ logging.basicConfig(format="%(levelname)s: %(message)s")
 
 DEFAULT_TEMPLATE = "com.gog.Template.json"
 I386_COMPAT_TEMPLATE = "com.gog.i386-compat.Template.json"
+
+MOJO_GAMEMODULE = "modules/game-mojo.Template.json"
 
 Json = OrderedDict  # [str, Any]
 Transform = Callable[[Json], Json]
@@ -158,8 +160,14 @@ class Template:
 
 
 class Installer:
-    """Provides GameInfo and a Template for the given installer file."""
+    """Provides GameInfo and a Template for the given installer file.
 
+    Inheriting classes can override `gamemodule_template` and `getTemplate()` to
+    customize template generation.
+    """
+
+    installer: str
+    gamemodule_template: TextIO
     gameinfo: GameInfo
 
     def getTemplate(self) -> Template:
@@ -171,12 +179,66 @@ class Installer:
             return MojoSetupInstaller(installer)
         raise ValueError(f"Unknown file extension '{os.path.splitext(installer)[1]}'")
 
+    def getGamemodule(self) -> Json:
+        """Generate the game module and insert it into the template's JSON."""
+        startoverride = args.startoverride
+        configureoverride = args.configureoverride
+        if startoverride == 'auto':
+            startoverride = f"overrides/starter-{self.gameinfo.name}"
+        if configureoverride == 'auto':
+            configureoverride = f"overrides/configure-{self.gameinfo.name}"
+
+        moduledata = json.load(
+            args.gamemodule or self.gamemodule_template, object_pairs_hook=OrderedDict
+        )
+
+        moduledata['sources'][0]['path'] = self.installer
+
+        if os.path.isfile(startoverride):
+            moduledata['sources'].append(
+                OrderedDict([
+                    ("type", "file"),
+                    ("path", startoverride)
+                ])
+            )
+
+        if os.path.isfile(configureoverride):
+            moduledata['sources'].append(
+                OrderedDict([
+                    ("type", "file"),
+                    ("path", configureoverride),
+                    ("dest-filename", "configure")
+                ])
+            )
+
+        for i, v in enumerate(args.extra):
+            moduledata['sources'].append(
+                OrderedDict([
+                    ("type", "file"),
+                    ("path", v),
+                    ("dest-filename", "installer-{}.sh".format(i+1))
+                ])
+            )
+
+        return moduledata
+
 
 class MojoSetupInstaller(Installer):
     """Linux GOG installer."""
 
     def __init__(self, installer: str) -> None:
+        self.installer = installer
         self.gameinfo = GameInfo.fromMojoSetup(installer)
+        self.gamemodule_template = open(MOJO_GAMEMODULE, "r")
+
+    # @override
+    def getTemplate(self) -> Template:
+        def addGamemodule(jsondata: Json) -> Json:
+            moduledata = self.getGamemodule()
+            jsondata["modules"].append(moduledata)
+            return jsondata
+
+        return Template(self.gameinfo).transform(addGamemodule)
 
 
 def parseArgs() -> argparse.Namespace:
@@ -197,7 +259,7 @@ def parseArgs() -> argparse.Namespace:
         '--gamemodule',
         help="Template json of the game module.",
         type=argparse.FileType('r'),
-        default="modules/game.Template.json")
+        default=None)
     parser.add_argument(
         '--startoverride',
         help="Start script to override default.",
@@ -231,73 +293,12 @@ def parseArgs() -> argparse.Namespace:
 args = parseArgs()
 
 
-def getGameModule(
-    gamemodule_template: TextIO,
-    installer: str,
-    startoverride: str,
-    configureoverride: str,
-    extra: Sequence[str],
-) -> OrderedDict:
-    """Generate the game module to be included in the output file."""
-    moduledata = json.load(gamemodule_template, object_pairs_hook=OrderedDict)
-
-    moduledata['sources'][0]['path'] = installer
-
-    if os.path.isfile(startoverride):
-        moduledata['sources'].append(
-            OrderedDict([
-                ("type", "file"),
-                ("path", startoverride)
-            ])
-        )
-
-    if os.path.isfile(configureoverride):
-        moduledata['sources'].append(
-            OrderedDict([
-                ("type", "file"),
-                ("path", configureoverride),
-                ("dest-filename", "configure")
-            ])
-        )
-
-    for i, v in enumerate(extra):
-        moduledata['sources'].append(
-            OrderedDict([
-                ("type", "file"),
-                ("path", v),
-                ("dest-filename", "installer-{}.sh".format(i+1))
-            ])
-        )
-
-    return moduledata
-
-
 def main() -> None:
     installer = Installer.newInstance(args.installer)
     gameinfo = installer.gameinfo
 
-    startoverride = args.startoverride
-    configureoverride = args.configureoverride
-    modulesoverride = 'auto'
-    if startoverride == 'auto':
-        startoverride = "overrides/starter-{}".format(gameinfo.name)
-    if configureoverride == 'auto':
-        configureoverride = "overrides/configure-{}".format(gameinfo.name)
-    if modulesoverride == 'auto':
-        modulesoverride = "overrides/modules-{}.json".format(gameinfo.name)
-
-    def addGamemodule(jsondata: Json) -> Json:
-        gamemodule = getGameModule(
-            args.gamemodule,
-            args.installer,
-            startoverride,
-            configureoverride,
-            args.extra,
-        )
-        jsondata["modules"].insert(0, gamemodule)
-        return jsondata
-
     def moduleOverride(jsondata: Json) -> Json:
+        modulesoverride = f"overrides/modules-{gameinfo.name}.json"
         if os.path.isfile(modulesoverride):
             with open(modulesoverride, "r") as f:
                 moduledata = json.load(f, object_pairs_hook=OrderedDict)
@@ -306,9 +307,7 @@ def main() -> None:
                 jsondata["modules"].append(module)
         return jsondata
 
-    template = (
-        installer.getTemplate().transform(addGamemodule).transform(moduleOverride)
-    )
+    template = installer.getTemplate().transform(moduleOverride)
 
     outname = ("gen_{}.json".format(gameinfo.appid)
                if args.output == 'auto' else args.output)
