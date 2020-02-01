@@ -2,11 +2,14 @@
 
 import argparse
 import json
+import logging
 import os
 import re
 import zipfile
 from collections import OrderedDict
 from typing import Dict, Mapping, Optional, Sequence, TextIO
+
+logging.basicConfig(format="%(levelname)s: %(message)s")
 
 DEFAULT_TEMPLATE = "com.gog.Template.json"
 I386_COMPAT_TEMPLATE = "com.gog.i386-compat.Template.json"
@@ -33,8 +36,8 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
     if argarch == 'auto':
         gameinfo['arch'] = archdata.get(gameinfo['name'])
         if not gameinfo['arch']:
-            print(
-                "WARNING: Arch not specified, and not found in archlist.json - "
+            logging.warning(
+                "Arch not specified, and not found in archlist.json - "
                 "defaulting to x86_64!"
             )
             gameinfo['arch'] = 'x86_64'
