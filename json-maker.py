@@ -157,6 +157,28 @@ class Template:
             return json.load(file, object_pairs_hook=OrderedDict)
 
 
+class Installer:
+    """Provides GameInfo and a Template for the given installer file."""
+
+    gameinfo: GameInfo
+
+    def getTemplate(self) -> Template:
+        return Template(self.gameinfo)
+
+    @staticmethod
+    def newInstance(installer: str) -> "Installer":
+        if installer.endswith(".sh"):
+            return MojoSetupInstaller(installer)
+        raise ValueError(f"Unknown file extension '{os.path.splitext(installer)[1]}'")
+
+
+class MojoSetupInstaller(Installer):
+    """Linux GOG installer."""
+
+    def __init__(self, installer: str) -> None:
+        self.gameinfo = GameInfo.fromMojoSetup(installer)
+
+
 def parseArgs() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -251,7 +273,8 @@ def getGameModule(
 
 
 def main() -> None:
-    gameinfo = GameInfo.fromMojoSetup(args.installer)
+    installer = Installer.newInstance(args.installer)
+    gameinfo = installer.gameinfo
 
     startoverride = args.startoverride
     configureoverride = args.configureoverride
@@ -283,7 +306,9 @@ def main() -> None:
                 jsondata["modules"].append(module)
         return jsondata
 
-    template = Template(gameinfo).transform(addGamemodule).transform(moduleOverride)
+    template = (
+        installer.getTemplate().transform(addGamemodule).transform(moduleOverride)
+    )
 
     outname = ("gen_{}.json".format(gameinfo.appid)
                if args.output == 'auto' else args.output)
