@@ -15,7 +15,7 @@ DEFAULT_TEMPLATE = "com.gog.Template.json"
 I386_COMPAT_TEMPLATE = "com.gog.i386-compat.Template.json"
 
 
-def getGameInfo(installer, argname, argbranch, argarch, archdata):
+def getGameInfo(installer, argname, argarch, archdata):
     gameinfo = {}
     with zipfile.ZipFile(installer, 'r') as myzip:
         with myzip.open('data/noarch/gameinfo') as myfile:
@@ -23,7 +23,6 @@ def getGameInfo(installer, argname, argbranch, argarch, archdata):
             gameinfo['orig-name'] = tmplist[0]
             gameinfo['gogversion'] = tmplist[1]
             gameinfo['version'] = tmplist[2]
-            gameinfo['branch'] = argbranch
         gogversiondate = myzip.getinfo('data/noarch/gameinfo').date_time
         gameinfo['gogversiondate'] = "{}-{}-{}".format(gogversiondate[0], gogversiondate[1], gogversiondate[2])
 
@@ -99,10 +98,6 @@ def parseArgs() -> argparse.Namespace:
         default=[],
         help="Additional installers to run (e.g. DLC). " +
              "Can be used multiple times.")
-    parser.add_argument(
-        '--branch',
-        help="Branch name.",
-        default='master')
     parser.add_argument(
         '--arch',
         help="Arch of game.",
@@ -194,14 +189,12 @@ def main() -> None:
     gameinfo = getGameInfo(
             args.installer,
             args.name,
-            args.branch,
             args.arch,
             archdata)
 
     jsondata = readTemplate(gameinfo['arch'], args.template)
 
     jsondata['app-id'] = gameinfo['app-id']
-    jsondata['branch'] = gameinfo['branch']
 
     startoverride = args.startoverride
     configureoverride = args.configureoverride
