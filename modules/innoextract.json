@@ -1,0 +1,32 @@
+{
+    "name": "innoextract",
+    "buildsystem": "cmake-ninja",
+    "cleanup": [
+        "*"
+    ],
+    "sources": [
+        {
+            "type": "archive",
+            "url": "https://constexpr.org/innoextract/files/innoextract-1.8.tar.gz",
+            "sha256": "5e78f6295119eeda08a54dcac75306a1a4a40d0cb812ff3cd405e9862c285269"
+        }
+    ],
+    "modules": [
+        {
+            "name": "boost",
+            "buildsystem": "simple",
+            "build-commands": [
+                "./bootstrap.sh --prefix=/app --libdir=/app/lib32 --with-libraries=iostreams,filesystem,program_options,date_time",
+                "sed -i \"s/using gcc ;/using gcc : : i686-unknown-linux-gnu-g++ ;/g\" project-config.jam",
+                "./b2 -j $FLATPAK_BUILDER_N_JOBS install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.bz2",
+                    "sha256": "8f32d4617390d1c2d16f26a27ab60d97807b35440d45891fa340fc2648b04406"
+                }
+            ]
+        }
+    ]
+}

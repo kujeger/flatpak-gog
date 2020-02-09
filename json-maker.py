@@ -8,6 +8,7 @@ import re
 import zipfile
 from collections import OrderedDict
 from dataclasses import dataclass, field
+from itertools import count, takewhile
 from typing import Any, Callable, List, Mapping, Optional, TextIO
 
 from typing_extensions import Literal
@@ -18,11 +19,12 @@ DEFAULT_TEMPLATE = "com.gog.Template.json"
 I386_COMPAT_TEMPLATE = "com.gog.i386-compat.Template.json"
 
 MOJO_GAMEMODULE = "modules/game-mojo.Template.json"
+INNO_GAMEMODULE = "modules/game-inno.Template.json"
 
 Json = OrderedDict  # [str, Any]
 Transform = Callable[[Json], Json]
 Arch = Literal["i386", "i386+x86_64", "x86_64"]
-InstallerType = Literal["mojo"]
+InstallerType = Literal["inno", "mojo"]
 
 
 @dataclass
@@ -61,6 +63,12 @@ class GameInfo:
         gogversiondate = "{0}-{1}-{2}".format(*filedatetime)
 
         return GameInfo(name, gogversion, version, None, gogversiondate, "mojo")
+
+    @staticmethod
+    def fromInnoSetup(installer: str) -> "GameInfo":
+        """Get game info from the Inno Setup format used by GOG Linux installers."""
+
+        return GameInfo("Game", "1.0", "1.0", None, "1970-01-01", "inno")
 
     @staticmethod
     def _lookupArch(gamename: str) -> Arch:
@@ -177,6 +185,8 @@ class Installer:
     def newInstance(installer: str) -> "Installer":
         if installer.endswith(".sh"):
             return MojoSetupInstaller(installer)
+        if installer.endswith(".exe"):
+            return InnoSetupInstaller(installer)
         raise ValueError(f"Unknown file extension '{os.path.splitext(installer)[1]}'")
 
     def getGamemodule(self) -> Json:
@@ -239,6 +249,51 @@ class MojoSetupInstaller(Installer):
             return jsondata
 
         return Template(self.gameinfo).transform(addGamemodule)
+
+
+class InnoSetupInstaller(Installer):
+    """Windows GOG installer."""
+
+    def __init__(self, installer: str) -> None:
+        self.installer = installer
+        self.gameinfo = GameInfo.fromInnoSetup(installer)
+        self.gamemodule_template = open(INNO_GAMEMODULE, "r")
+
+    # @override
+    def getTemplate(self) -> Template:
+        def addWineAndInnoextract(jsondata: Json) -> Json:
+            jsondata['modules'].append("modules/wine.json")
+            jsondata['modules'].append("modules/innoextract.json")
+            return jsondata
+
+        def addGamemodule(jsondata: Json) -> Json:
+            moduledata = self.getGamemodule()
+            for i, file in enumerate(self.getInstallerData(), start=1):
+                moduledata['sources'].append(
+                OrderedDict([
+                    ("type", "file"),
+                    ("path", file),
+                    ("dest-filename", f"installer-{i}.bin")
+                ])
+            )
+            jsondata["modules"].append(moduledata)
+            return jsondata
+
+        return (
+            Template(self.gameinfo)
+            .transform(addWineAndInnoextract)
+            .transform(addGamemodule)
+        )
+
+    def getInstallerData(self) -> List[str]:
+        """Returns installername-*.bin data files."""
+        prefix = self.installer[:-4]  # remove .exe
+
+        def exists(filename: str) -> bool:
+            return os.path.exists(filename) and os.path.isfile(filename)
+
+        filenames = takewhile(exists, (f"{prefix}-{n}.bin" for n in count(start=1)))
+        return list(filenames)
 
 
 def parseArgs() -> argparse.Namespace:

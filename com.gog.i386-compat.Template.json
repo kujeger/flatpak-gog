@@ -47,6 +47,7 @@
         "prepend-pkg-config-path": "/app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig",
         "ldflags": "-L/app/lib32",
         "append-path": "/usr/lib/sdk/toolchain-i386/bin",
+        "append-ld-library-path": "/app/lib32",
         "env": {
             "CC": "i686-unknown-linux-gnu-gcc",
             "CXX": "i686-unknown-linux-gnu-g++"

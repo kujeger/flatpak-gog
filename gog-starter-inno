@@ -1,0 +1,64 @@
+#!/bin/python3
+
+import glob
+import json
+import os
+import subprocess
+from typing import Any, Dict, NoReturn, Optional
+
+Json = Dict[str, Any]
+
+NA = [None]
+
+
+def show_default_message() -> None:
+    msg = (
+        "Directly starting TEMPLATELONGNAME is not implemented yet.\n"
+        "To open the flatpak run\n"
+        "\n"
+        "flatpak run --command=bash --cwd=/app/game TEMPLATESTART\n"
+        "\n"
+        "Then find the game's .exe and execute it with\n"
+        "wine nameofthegame.exe"
+    )
+    subprocess.run(["zenity", "--info", "--no-wrap", f"--text={msg}"])
+
+
+def fail() -> NoReturn:
+    show_default_message()
+    exit(1)
+
+
+def get_infofile(path: str = "") -> Optional[str]:
+    return (glob.glob(os.path.join(path, "goggame-*.info")) or NA)[0]
+
+
+def find_gamedir() -> Optional[str]:
+    if get_infofile("/app/game"):
+        return "/app/game"
+
+    # Some games (e.g. Limbo) get extracted into a subfolder, so we need to check.
+    dirs = glob.glob("/app/game/*/")
+    return ([d for d in dirs if get_infofile(d)] or NA)[0]
+
+
+def main() -> None:
+    os.chdir(find_gamedir() or fail())
+
+    infofile = get_infofile() or fail()
+
+    with open(infofile) as f:
+        jsondata: Json = json.load(f)
+
+    tasks = jsondata["playTasks"]
+
+    def is_starter(t: Json) -> bool:
+        return t.get("category") == "game" and t["isPrimary"] and t["path"]
+
+    starter = ([t for t in tasks if is_starter(t)] or fail())[0]
+
+    subprocess.run(["wine", starter["path"]])
+
+
+if __name__ == "__main__":
+    main()
