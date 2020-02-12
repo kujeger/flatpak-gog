@@ -57,7 +57,10 @@ def main() -> None:
 
     starter = ([t for t in tasks if is_starter(t)] or fail())[0]
 
-    subprocess.run(["wine", starter["path"]])
+    try:
+        subprocess.run(["wine64", starter["path"]])
+    except FileNotFoundError:
+        subprocess.run(["wine", starter["path"]])
 
 
 if __name__ == "__main__":

@@ -16,8 +16,8 @@
             "name": "boost",
             "buildsystem": "simple",
             "build-commands": [
-                "./bootstrap.sh --prefix=/app --libdir=/app/lib32 --with-libraries=iostreams,filesystem,program_options,date_time",
-                "sed -i \"s/using gcc ;/using gcc : : i686-unknown-linux-gnu-g++ ;/g\" project-config.jam",
+                "if [ \"${GOGARCH}\" == 'i386' ]; then export OPT=--libdir=${FLATPAK_DEST}/lib32; fi; ./bootstrap.sh $OPT --prefix=${FLATPAK_DEST} --with-libraries=iostreams,filesystem,program_options,date_time",
+                "if [ \"${GOGARCH}\" == 'i386' ]; then sed -i \"s/using gcc ;/using gcc : : i686-unknown-linux-gnu-g++ ;/g\" project-config.jam; fi",
                 "./b2 -j $FLATPAK_BUILDER_N_JOBS install"
             ],
             "sources": [

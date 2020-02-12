@@ -50,7 +50,8 @@
         "append-ld-library-path": "/app/lib32",
         "env": {
             "CC": "i686-unknown-linux-gnu-gcc",
-            "CXX": "i686-unknown-linux-gnu-g++"
+            "CXX": "i686-unknown-linux-gnu-g++",
+            "GOGARCH": "i386"
         },
         "libdir": "/app/lib32"
     },

@@ -1,6 +1,12 @@
 {
     "name": "wine",
-    "config-opts": ["--host=i686-unknown-linux-gnu"],
+    "buildsystem": "simple",
+    "build-commands": [
+        "if [ \"$GOGARCH\" == 'i386' ]; then ./configure --prefix=${FLATPAK_DEST} --host=i686-unknown-linux-gnu; fi",
+        "if [ \"$GOGARCH\" != 'i386' ]; then ./configure --prefix=${FLATPAK_DEST} --enable-win64; fi",
+        "make -j $FLATPAK_BUILDER_N_JOBS",
+        "make install"
+    ],
     "sources": [
         {
             "type": "archive",
