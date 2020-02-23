@@ -1,5 +1,5 @@
 {
-    "app-id": "com.gog.GAMENAME",
+    "app-id": "APPID",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "19.08",
     "sdk": "org.freedesktop.Sdk",

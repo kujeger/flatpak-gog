@@ -1,0 +1,46 @@
+{
+    "name": "game",
+    "buildsystem": "simple",
+    "build-commands": [
+        "mkdir -p /app/game /app/bin /app/lib /app/share/applications/ /app/share/icons/hicolor/256x256/apps /app/share/desktop-directories/",
+        "install starter* /app/bin/",
+        "innoextract --gog --exclude-temp --output-dir=/app/game installer.exe",
+        "if [ -e configure ]; then sh configure; fi",
+        "install Template.desktop /app/share/applications/",
+        "mkdir -p /app/share/appdata",
+        "install -m644 template.appdata.xml /app/share/appdata/",
+        "install icon.png /app/share/icons/hicolor/256x256/apps/",
+        "sed -i \"s/TEMPLATELONGNAME/REPLACELONGNAME/g\" /app/share/applications/Template.desktop",
+        "sed -i \"s/TEMPLATELONGNAME/REPLACELONGNAME/g\" /app/share/appdata/template.appdata.xml",
+        "sed -i \"s/TEMPLATESHORTNAME/REPLACESHORTNAME/g\" /app/share/appdata/template.appdata.xml",
+        "sed -i \"s/TEMPLATEVERSIONSTRING/REPLACEVERSIONSTRING/g\" /app/share/appdata/template.appdata.xml",
+        "sed -i \"s/TEMPLATEVERSIONDATE/REPLACEVERSIONDATE/g\" /app/share/appdata/template.appdata.xml",
+        "sed -i \"s/TEMPLATELONGNAME/REPLACELONGNAME/g\" /app/bin/starter*",
+        "sed -i \"s/TEMPLATESTART/APPID/g\" /app/bin/starter*"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "path": "GAMEINSTALLER",
+            "dest-filename": "installer.exe"
+        },
+        {
+            "type": "file",
+            "path": "gog-starter-inno",
+            "dest-filename": "starter"
+        },
+        {
+            "type": "file",
+            "path": "Template.desktop"
+        },
+        {
+            "type": "file",
+            "path": "template.appdata.xml"
+        },
+        {
+            "type": "file",
+            "path": "default-icon.png",
+            "dest-filename": "icon.png"
+        }
+    ]
+}
