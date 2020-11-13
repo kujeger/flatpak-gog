@@ -1,4 +1,3 @@
 [
-  "modules/systemd-udev.json",
   "modules/sdl12-compat.json"
 ]
