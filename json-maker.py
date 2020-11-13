@@ -206,6 +206,13 @@ def main() -> None:
     if modulesoverride == 'auto':
         modulesoverride = "overrides/modules-{}.json".format(gameinfo['name'])
 
+    if os.path.isfile(modulesoverride):
+        moduledata = "{}"
+        with open(modulesoverride, 'r') as f:
+            moduledata = json.load(f, object_pairs_hook=OrderedDict)
+        for module in moduledata:
+            jsondata['modules'].append(module)
+
     gamemodule = getGameModule(
         args.gamemodule,
         gameinfo,
@@ -214,15 +221,7 @@ def main() -> None:
         configureoverride,
         args.extra,
     )
-    jsondata['modules'].insert(0, gamemodule)
-
-    if os.path.isfile(modulesoverride):
-        moduledata = "{}"
-        with open(modulesoverride, 'r') as f:
-            moduledata = json.load(f, object_pairs_hook=OrderedDict)
-
-        for module in moduledata:
-            jsondata['modules'].append(module)
+    jsondata['modules'].append(gamemodule)
 
     outname = ("gen_{}.json".format(gameinfo['app-id'])
                if args.output == 'auto' else args.output)
