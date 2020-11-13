@@ -15,7 +15,8 @@
         "--device=all",
         "--socket=pulseaudio",
         "--persist=.",
-        "--allow=multiarch"
+        "--allow=multiarch",
+        "--env=SDL_DYNAMIC_API=/app/lib/i386-linux-gnu/libSDL2-2.0.so.0"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.Compat.i386": {

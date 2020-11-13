@@ -15,8 +15,7 @@
         "sed -i \"s/TEMPLATEVERSIONSTRING/REPLACEVERSIONSTRING/g\" /app/share/appdata/template.appdata.xml",
         "sed -i \"s/TEMPLATEVERSIONDATE/REPLACEVERSIONDATE/g\" /app/share/appdata/template.appdata.xml",
         "cp /app/game/support/icon.png /app/share/icons/hicolor/256x256/apps/",
-        "chmod a+x -R /app/game/game",
-        "find /app/game/game/ -name 'libSDL2*.so*' -exec rm -rf {} \\;"
+        "chmod a+x -R /app/game/game"
     ],
     "sources": [
         {
