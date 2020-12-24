@@ -21,5 +21,6 @@
         "/include"
     ],
     "modules": [
+        "shared-modules/glu/glu-9.json"
     ]
 }
