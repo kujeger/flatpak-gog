@@ -12,19 +12,19 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install flathub org.freedesktop.Platform/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Platform/x86_64/21.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Sdk/x86_64/21.08`
 
 For x86 games additionally install the required compatibility packages:
 
-`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/21.08`
 
-`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/21.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/21.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/20.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/21.08`
 
 ## Usage
 To prepare a game, you can use the provided "json-maker.py" script, e.g.
