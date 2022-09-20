@@ -12,36 +12,36 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install flathub org.freedesktop.Platform/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Platform/x86_64/22.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Sdk/x86_64/22.08`
 
 For x86 games additionally install the required compatibility packages:
 
-`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/22.08`
 
-`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/22.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/22.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/21.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/22.08`
 
 ## Usage
-To prepare a game, you can use the provided "json-maker.py" script, e.g.
+To prepare a game, you can use the provided `json-maker` script, e.g.
 
-`./json-maker.py ~/Downloads/gog_baldur_s_gate_2_enhanced_edition_2.6.0.11.sh`
+`./json-maker ~/Downloads/baldur_s_gate_ii_enhanced_edition_2_6_6_0_47292.sh`
 
 which will create a new json in the current dir based on the com.gog.Template.json file, with a name like gen_com.gog.BaldursGate2EnhancedEdition.json .
 
 You can then build and install it directly thus:
 
-`flatpak-builder --user --install build gen_com.gog.BaldursGate2EnhancedEdition.json --force-clean --arch=x86_64`
+`flatpak-builder --user --install build gen_com.gog.BaldursGateIIEnhancedEdition.json --force-clean --arch x86_64`
 
-(see also the suggested command in the output of json-maker.py)
+(see also the suggested command in the output of `json-maker`)
 
 After installation you can start it like this, or use the desktop/menu icon that should have also been created.
 
-`flatpak run com.gog.BaldursGate2EnhancedEdition`
+`flatpak run com.gog.BaldursGateIIEnhancedEdition`
 
 ## Disk-space use
 flatpak-builder leaves some caching in .flatpak-builder, and the prepared Build/GAMENAME directory. These can be safely removed once you have the game running.
