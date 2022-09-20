@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd /app/game/game/
+
+rm libopenal*
+rm libSDL*
