@@ -35,16 +35,9 @@ def getGameInfo(installer, argname, argarch, archdata):
     if argarch == 'auto':
         gameinfo['arch'] = archdata.get(gameinfo['name'])
         if not gameinfo['arch']:
-            logging.warning(
-                "Arch not specified, and not found in archlist.json - "
-                "defaulting to x86_64!"
-            )
             gameinfo['arch'] = 'x86_64'
     else:
         gameinfo['arch'] = argarch
-    if gameinfo['arch'] == 'i386+x86_64':
-            gameinfo['arch'] = 'x86_64'
-
     return gameinfo
 
 
@@ -183,7 +176,7 @@ def readTemplate(arch: str, template: Optional[TextIO]) -> Dict:
 def main() -> None:
     args = parseArgs()
 
-    with open('archlist.json', 'r') as archfile:
+    with open('i386archlist.json', 'r') as archfile:
         archdata = json.load(archfile)
 
     gameinfo = getGameInfo(
