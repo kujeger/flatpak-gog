@@ -12,19 +12,19 @@ If you haven't already got it, add the repo like this:
 
 then install the runtime plus SDK:
 
-`flatpak --user install flathub org.freedesktop.Platform/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Platform/x86_64/23.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Sdk/x86_64/23.08`
 
 For x86 games additionally install the required compatibility packages:
 
-`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/23.08`
 
-`flatpak --user install flathub org.freedesktop.Platform.GL32.default/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Platform.GL32.default/x86_64/23.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/23.08`
 
-`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/23.08`
 
 ## Usage
 First, clone the repo and then pull the submodules:
