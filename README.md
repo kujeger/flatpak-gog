@@ -20,13 +20,20 @@ For x86 games additionally install the required compatibility packages:
 
 `flatpak --user install flathub org.freedesktop.Platform.Compat.i386/x86_64/22.08`
 
-`flatpak --user install flathub org.freedesktop.Platform.GL32/x86_64/22.08`
+`flatpak --user install flathub org.freedesktop.Platform.GL32.default/x86_64/22.08`
 
 `flatpak --user install flathub org.freedesktop.Sdk.Compat.i386/x86_64/22.08`
 
 `flatpak --user install flathub org.freedesktop.Sdk.Extension.toolchain-i386/x86_64/22.08`
 
 ## Usage
+First, clone the repo and then pull the submodules:
+```
+git clone https://github.com/kujeger/flatpak-gog.git
+cd flatpak-gog
+git submodule update --init --recursive
+```
+
 To prepare a game, you can use the provided `json-maker` script, e.g.
 
 `./json-maker ~/Downloads/baldur_s_gate_ii_enhanced_edition_2_6_6_0_47292.sh`
